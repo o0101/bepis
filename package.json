@@ -1,0 +1,22 @@
+{
+  "name": "blps",
+  "version": "1.0.0",
+  "description": "business landing pages",
+  "main": "index.js",
+  "scripts": {
+    "test": "serve -p 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crislin2046/blps.git"
+  },
+  "author": "@dosy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crislin2046/blps/issues"
+  },
+  "homepage": "https://github.com/crislin2046/blps#readme",
+  "devDependencies": {
+    "serve": "^11.3.0"
+  }
+}
