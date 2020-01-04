@@ -4,14 +4,14 @@
   "description": "business landing pages",
   "main": "index.js",
   "scripts": {
-    "test": "serve -p 8080"
+    "test": "cp src/index.js test/ && serve test -p 8080"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/crislin2046/blps.git"
   },
   "author": "@dosy",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/crislin2046/blps/issues"
   },
