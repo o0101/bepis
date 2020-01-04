@@ -82,7 +82,7 @@ function w(tags, params) {
       m = M;
     }
   }
-  return m;
+  return m || (() => 0);
 }
 
 function hasSlice(tags, params) {
