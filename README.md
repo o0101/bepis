@@ -9,6 +9,7 @@ Bepis is a crazy new way to write HTML + CSS in JavaScript
 - Use '.' operator to load an insertion point
 - After a tag path the first parameter is the content (string or Element properties object)
 - After a tag path the second parameter is the style (inline style object scoped to that element)
+- A tagged template literal returns an insertion function. Call that function with the Element you want to append this markup to.
 
 ## Examples
 
