@@ -45,6 +45,17 @@ w`ul,
 
 ## Tutorial
 
+**Format**
+
+```
+w`tag-list ${content} ${style}`(insertionPoint)
+```
+where
+- tag-list := [html-tag-name ]+
+- content := string | object | null
+- style := object | null
+
+**Also**:
 - Use template literals tagged with `w`
 - Use ',' operator to save an insertion point
 - Use '.' operator to load an insertion point
@@ -52,15 +63,17 @@ w`ul,
 - After a tag path the second parameter is the style (inline style object scoped to that element)
 - A tagged template literal returns an insertion function. Call that function with the Element you want to append this markup to.
 - Whitespace in the template literal has no special meaning and, except to separate tags, is ignored.
-
-## Design pHilOsOPHy
-
-Bepis is designed to be concise and crazy. It should work but it's not suitable for any production environment. It's highly experimental.
-Also bepis is not meant for dynamic *updating* of HTML, only dynamic creation. So if you want to find a node and change it's style or attribute or value, bepis is **NOT** your friend (unless you don't mind clearing the ENTIRE document and writing everything again, then ... bepis would be your friend).
+- If you want to use the style parameter, but not the content parameter you need to put a null or undefined in the content parameter. I do this in the examples by using a variable set to null.
 
 ## Why Bepis?
 
 Bepis is meant to be a quick and easy and small way to write HTML from JS. Personally I didn't used to mind writing angle brackets and equals signs and closing tags, but eventually I just got sick of it. Not to the extent that I hate doing it, just to the extent that when I don't have to worry about writing dynamic updating HTML, I want something easy. Bepis was built to be a friend to building business landing pages fast. I figure I can write HTML in bepis faster than writing HTML.
+## Design pHilOsOPHy
+
+Bepis is designed to be concise and crazy. It should work but it's not suitable for any production environment. It's highly experimental.
+
+Also bepis is not meant for dynamic *updating* of HTML, only dynamic creation. So if you want to find a node and change its style or attribute or value, bepis is **NOT** your friend (unless you don't mind clearing the ENTIRE document and writing everything again, then ... bepis *would be* your friend).
+
 
 ## Roadmap
 
