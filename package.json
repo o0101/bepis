@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/crislin2046/blps.git"
+    "url": "git+https://github.com/crislin2046/bepis.git"
   },
   "author": "@dosy",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/crislin2046/blps/issues"
+    "url": "https://github.com/crislin2046/bepis/issues"
   },
-  "homepage": "https://github.com/crislin2046/blps#readme",
+  "homepage": "https://github.com/crislin2046/bepis#readme",
   "devDependencies": {
     "serve": "^11.3.0"
   }

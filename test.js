@@ -37,5 +37,16 @@ import {w, C} from './src/index.js';
       p button ${"Sign up"} 
     `(body);
   }
+
+  {
+    w`ul, 
+      li ${"Option 1"}, 
+      li ${"Option 2"},
+        p input ${{type:'submit'}}.
+        p form button ${"SAVE"}.
+      .
+      li ${"Option 3"}.
+    `(body);
+  }
 }
 
