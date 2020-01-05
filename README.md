@@ -2,15 +2,6 @@
 
 Bepis is a crazy new way to write HTML + CSS in JavaScript
 
-## Tutorial
-
-- Use template literals tagged with `w`
-- Use ',' operator to save an insertion point
-- Use '.' operator to load an insertion point
-- After a tag path the first parameter is the content (string or Element properties object)
-- After a tag path the second parameter is the style (inline style object scoped to that element)
-- A tagged template literal returns an insertion function. Call that function with the Element you want to append this markup to.
-
 ## Examples
 
 Just some simple examples you can play with it online [here](JSFIDDLE).
@@ -47,6 +38,16 @@ w`ul,
 	li ${"Option 3"}.
 `(body);
 ```
+
+## Tutorial
+
+- Use template literals tagged with `w`
+- Use ',' operator to save an insertion point
+- Use '.' operator to load an insertion point
+- After a tag path the first parameter is the content (string or Element properties object)
+- After a tag path the second parameter is the style (inline style object scoped to that element)
+- A tagged template literal returns an insertion function. Call that function with the Element you want to append this markup to.
+- Whitespace in the template literal has no special meaning and, except to separate tags, is ignored.
 
 ## Design pHilOsOPHy
 
