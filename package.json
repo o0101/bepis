@@ -18,5 +18,12 @@
   "homepage": "https://github.com/crislin2046/bepis#readme",
   "devDependencies": {
     "serve": "^11.3.0"
-  }
+  },
+  "dependencies": {},
+  "keywords": [
+    "static",
+    "HTML",
+    "CSS",
+    "crazy"
+  ]
 }
