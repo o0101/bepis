@@ -43,6 +43,12 @@ w`ul,
 `(body);
 ```
 
+## Get
+
+```
+$ npm i bepis
+```
+
 ## Tutorial
 
 **Format**
