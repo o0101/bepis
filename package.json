@@ -2,7 +2,7 @@
   "name": "bepis",
   "version": "1.0.7",
   "description": "bepis is a crazy new way to write HTML + CSS in JavaScript",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "serve -p 8080"
   },
