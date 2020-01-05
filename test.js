@@ -1,4 +1,4 @@
-import {w, C} from './src/index.js';
+import {w, C} from './index.js';
 
 {
   const o = null;
