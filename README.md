@@ -4,7 +4,7 @@
 
 # bepis
 
-Bepis is a crazy new way to write HTML + CSS in JavaScript
+Bepis is a crazy new way to write HTML + CSS in JavaScript.
 
 ## Examples
 
