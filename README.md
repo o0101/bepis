@@ -8,7 +8,7 @@ Bepis is a crazy new way to write HTML + CSS in JavaScript.
 
 ## Examples
 
-Just some simple examples you can play with it online [here](JSFIDDLE).
+Just some simple examples you can play with it online [here](https://jsfiddle.net/rjze2n3p/2/).
 
 ```javascript
 
