@@ -95,7 +95,7 @@ Also bepis is not meant for dynamic *updating* of HTML, only dynamic creation. S
 
 ## Related Projects
 
-I don't know. I didn't search any "prior art." Let me know how I reinvented this tiny misshapen wheel by opening a PR request.
+I don't know. I didn't search any "prior art." Let me know how I reinvented this beautiful wheel by opening a PR request.
 
 
 ----------
