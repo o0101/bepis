@@ -4,7 +4,7 @@
   "description": "business landing pages",
   "main": "index.js",
   "scripts": {
-    "test": "cp src/index.js test/ && serve test -p 8080"
+    "test": "serve -p 8080"
   },
   "repository": {
     "type": "git",

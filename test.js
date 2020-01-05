@@ -1,10 +1,10 @@
-import {w, C} from './index.js';
+import {w, C} from './src/index.js';
 
 {
   const o = null;
   const {body} = document;
   const myStyle = {
-    color: '#b0b0b0',
+    color: '#808080',
     background: 'linear-gradient(to right, lime, dodgerblue)',
     margin: 0
   };
@@ -27,6 +27,15 @@ import {w, C} from './index.js';
 
   {
     w`form ${o} ${myStyle} p label ${"Name"} input ${{type:'text', placeholder:'your name'}}`(body);
+  }
+
+  {
+    w`form ${o} ${myStyle}, 
+      p label ${"Name"} input ${{required: true, type:'text', placeholder:'your name'}}.
+      p label ${"Email"} input ${{required: true, type:'email', placeholder:'your email'}}.
+      p label ${"Password"} input ${{required: true, type:'password', placeholder:'your password'}}.
+      p button ${"Sign up"} 
+    `(body);
   }
 }
 

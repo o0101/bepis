@@ -1,7 +1,10 @@
+const DEBUG = false;
 C.maxLength = 3;
+const LOAD_OPERATOR = '.';
+const SAVE_OPERATOR = ',';
 
 export function C([tag], content = '', style = {}) {
-  console.log(tag, content, style);
+  DEBUG && console.log(tag, content, style);
   if ( ! tag ) {
     throw new TypeError("Must specify tag");
   }
@@ -46,10 +49,27 @@ export function C([tag], content = '', style = {}) {
 }
 
 export function w(tags, ...params) {
+  const tagStack = [];
   tags = Array.from(tags);
   let m, M;
   while( hasSlice(tags) ) {
     let [tag, content, style] = nextSlice(tags, params);
+    let saves = tag.includes(SAVE_OPERATOR);
+    let loads = tag.includes(LOAD_OPERATOR);
+    if ( saves && loads ) {
+      throw new TypeError("Such tag sequences containing save and load operators are not implemented yet.");
+    } else if ( loads && tag.startsWith(LOAD_OPERATOR) ) {
+      tag = tag.replace(LOAD_OPERATOR, '');
+      ({savePoint:M} = tagStack.pop());
+      tagStack.push({savePoint:M});
+    } else if ( saves && tag.startsWith(SAVE_OPERATOR) ) {
+      DEBUG && console.log("save", tag);
+      tag = tag.replace(SAVE_OPERATOR, '');
+      tagStack.push({savePoint: M});
+    } else if ( saves || loads ) {
+      throw new TypeError("Using saves or loads in this configuration is not supported yet", tag);
+    }
+
     if ( ! m ) {
       const nextM = C.call("free", [tag], content, style);
       m = nextM;
