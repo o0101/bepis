@@ -74,7 +74,8 @@ where
 ## Why Bepis?
 
 Bepis is meant to be a quick and easy and small way to write HTML from JS. Personally I didn't used to mind writing angle brackets and equals signs and closing tags, but eventually I just got sick of it. Not to the extent that I hate doing it, just to the extent that when I don't have to worry about writing dynamic updating HTML, I want something easy. Bepis was built to be a friend to building business landing pages fast. I figure I can write HTML in bepis faster than writing HTML.
-## Design pHilOsOPHy
+
+## DesiGn pHilOsOPHy
 
 Bepis is designed to be concise and crazy. It should work but it's not suitable for any production environment. It's highly experimental.
 
