@@ -1,7 +1,7 @@
 {
-  "name": "blps",
+  "name": "bepis",
   "version": "1.0.3",
-  "description": "business landing pages",
+  "description": "bepis is a crazy new way to write HTML + CSS in JavaScript",
   "main": "index.js",
   "scripts": {
     "test": "serve -p 8080"
