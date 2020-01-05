@@ -48,5 +48,15 @@ import {w, C} from './index.js';
       li ${"Option 3"}.
     `(body);
   }
+
+  {
+    w`ul,
+      li a ${{innerText: "Bugs", href: 'bugs.html'}}.
+      li a ${{innerText: "Audits", href: 'audits.html'}}.
+      li a ${{innerText: "PDFs", href: 'pdfs.html'}}.
+      li a ${{innerText: "Isolation", href: 'isolation.html'}}.
+      li a ${{innerText: "Tests", href: 'tests.html'}}.
+    `(document.body);
+  }
 }
 

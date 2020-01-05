@@ -14,6 +14,7 @@ export function C([tag], content = '', style = {}) {
     let z = document.createElement(tag.shift());
     for ( const t of tag ) {
       z = z.appendChild(document.createElement(t));
+      console.log(z);
     }
 
   // insert local content at stack top
@@ -35,6 +36,10 @@ export function C([tag], content = '', style = {}) {
 
   // apply style
     Object.assign(z.style, style);
+
+  while(z.parentElement) {
+    z = z.parentElement; 
+  }
 
   // return inserter function
     return point => {
@@ -60,16 +65,20 @@ export function w(tags, ...params) {
       throw new TypeError("Such tag sequences containing save and load operators are not implemented yet.");
     } else if ( loads && tag.startsWith(LOAD_OPERATOR) ) {
       tag = tag.slice(1);
+      console.log("Load", tag, M);
       ({savePoint:M} = tagStack.pop());
       if ( tag.length ) {
         tagStack.push({savePoint:M});
       }
     } else if ( saves && tag.startsWith(SAVE_OPERATOR) ) {
       tag = tag.slice(1);
+      console.log("Save", tag, M);
       tagStack.push({savePoint: M});
     } else if ( saves || loads ) {
       throw new TypeError("Using saves or loads in this configuration is not supported yet", tag);
     }
+
+    tag = tag.trim(); 
 
     if ( tag.length ) {
       if ( ! m ) {
