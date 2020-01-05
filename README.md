@@ -45,10 +45,17 @@ w`ul,
 
 ## Tutorial
 
-- Format: `w\`<tag-list> ${content} ${style}\`(insertionPoint)`, where
-	- <tag-list> := [<html-tag-name> ]+
-	- content := string | object | null
-	- style := object | null
+**Format**
+
+```
+w`tag-list ${content} ${style}`(insertionPoint)
+```
+where
+- tag-list := [html-tag-name ]+
+- content := string | object | null
+- style := object | null
+
+**Also**:
 - Use template literals tagged with `w`
 - Use ',' operator to save an insertion point
 - Use '.' operator to load an insertion point
