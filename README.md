@@ -86,6 +86,11 @@ Also bepis is not meant for dynamic *updating* of HTML, only dynamic creation. S
 - Anything to do with dynamic updating HTML, components, element location pinning, or anything at all like that. THer'es plenty of good tools for that, so take your pick and take it elsehwere if that's your need.
 - ANything to do with state management or anything esoteric and highfalutin and ennobled like that. Bepis is just for HTML + CSS (and maybe some event listeners) but nothing about updating (*it's just a better way to write HTML*)
 
+## Related Projects
+
+I don't know. I didn't search any "prior art." Let me know how I reinvented this tiny misshapen wheel by opening a PR request.
+
+
 ----------
 
 
