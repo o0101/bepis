@@ -7,6 +7,8 @@ Bepis is a crazy new way to write HTML + CSS in JavaScript
 - Use template literals tagged with `w`
 - Use ',' operator to save an insertion point
 - Use '.' operator to load an insertion point
+- After a tag path the first parameter is the content (string or Element properties object)
+- After a tag path the second parameter is the style (inline style object scoped to that element)
 
 ## Examples
 
@@ -14,35 +16,35 @@ Just some simple examples you can play with it online [here](JSFIDDLE).
 
 ```javascript
 
-  // setup constants
-  const o = null;
-  const {body} = document;
-  const myStyle = {
-    color: '#808080',
-    background: 'linear-gradient(to right, lime, dodgerblue)',
-    margin: 0
-  };
+// setup constants
+const o = null;
+const {body} = document;
+const myStyle = {
+color: '#808080',
+background: 'linear-gradient(to right, lime, dodgerblue)',
+margin: 0
+};
 
-	// form with 1 field
-	w`form ${o} ${myStyle} p label ${"Name"} input ${{type:'text', placeholder:'your name'}}`(body);
-	
-	// form with 2 field
-	w`form ${o} ${myStyle}, 
-		p label ${"Name"} input ${{required: true, type:'text', placeholder:'your name'}}.
-		p label ${"Email"} input ${{required: true, type:'email', placeholder:'your email'}}.
-		p label ${"Password"} input ${{required: true, type:'password', placeholder:'your password'}}.
-		p button ${"Sign up"} 
-	`(body);
+// form with 1 field
+w`form ${o} ${myStyle} p label ${"Name"} input ${{type:'text', placeholder:'your name'}}`(body);
 
-	// form with 3 field
-	w`ul, 
-		li ${"Option 1"}, 
-		li ${"Option 2"},
-			p input ${{type:'submit'}}.
-			p form button ${"SAVE"}.
-		.
-		li ${"Option 3"}.
-	`(body);
+// form with 2 field
+w`form ${o} ${myStyle}, 
+	p label ${"Name"} input ${{required: true, type:'text', placeholder:'your name'}}.
+	p label ${"Email"} input ${{required: true, type:'email', placeholder:'your email'}}.
+	p label ${"Password"} input ${{required: true, type:'password', placeholder:'your password'}}.
+	p button ${"Sign up"} 
+`(body);
+
+// form with 3 field
+w`ul, 
+	li ${"Option 1"}, 
+	li ${"Option 2"},
+		p input ${{type:'submit'}}.
+		p form button ${"SAVE"}.
+	.
+	li ${"Option 3"}.
+`(body);
 ```
 
 ## Design pHilOsOPHy
