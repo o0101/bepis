@@ -1,6 +1,6 @@
 {
   "name": "blps",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "business landing pages",
   "main": "index.js",
   "scripts": {
