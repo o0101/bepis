@@ -40,7 +40,7 @@ import {w, C} from './index.js';
 
   {
     w`ul, 
-      li ${"Option 1"}, 
+      li ${"Option 1"}.
       li ${"Option 2"},
         p input ${{type:'submit'}}.
         p form button ${"SAVE"}.
