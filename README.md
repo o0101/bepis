@@ -73,7 +73,9 @@ Bepis is meant to be a quick and easy and small way to write HTML from JS. Perso
 - Anything to do with dynamic updating HTML, components, element location pinning, or anything at all like that. THer'es plenty of good tools for that, so take your pick and take it elsehwere if that's your need.
 - ANything to do with state management or anything esoteric and highfalutin and ennobled like that. Bepis is just for HTML + CSS (and maybe some event listeners) but nothing about updating (*it's just a better way to write HTML*)
 
+----------
+
 
 <p align=center>
-  <img src="readme-images/bepiswantsyou.jpg?raw=true" alt="Bepis Wants You">
+  <img src="readme-images/bepiswatnsyou.jpg?raw=true" alt="Bepis Wants You" width="80%">
 </p>
