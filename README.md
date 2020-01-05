@@ -1,3 +1,7 @@
+<p align=center>
+  <img src="readme-images/bepis-logo.jpg?raw=true" alt="Bepis Logo">
+</p>
+
 # bepis
 
 Bepis is a crazy new way to write HTML + CSS in JavaScript
@@ -70,3 +74,6 @@ Bepis is meant to be a quick and easy and small way to write HTML from JS. Perso
 - ANything to do with state management or anything esoteric and highfalutin and ennobled like that. Bepis is just for HTML + CSS (and maybe some event listeners) but nothing about updating (*it's just a better way to write HTML*)
 
 
+<p align=center>
+  <img src="readme-images/bepiswantsyou.jpg?raw=true" alt="Bepis Wants You">
+</p>
