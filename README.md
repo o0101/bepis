@@ -10,7 +10,11 @@ Bepis is a crazy new way to write HTML + CSS in JavaScript
 
 ## Examples
 
+Just some simple examples you can play with it online [here](JSFIDDLE).
+
 ```javascript
+
+  // setup constants
   const o = null;
   const {body} = document;
   const myStyle = {
