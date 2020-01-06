@@ -68,24 +68,32 @@ import {w, C} from './index.js';
           ul,
             li aside,
               h1 ${"A stunning feature"}.
-              h2 ${"Amazing byline of the feature"}..
+              h2 ${"Amazing byline of the feature"}.
+            .
             li aside,
               h1 ${"A stunning feature"}.
-              h2 ${"Amazing byline of the feature"}..
+              h2 ${"Amazing byline of the feature"}.
+            .
             li aside,
               h1 ${"A stunning feature"}.
-              h2 ${"Amazing byline of the feature"}..
+              h2 ${"Amazing byline of the feature"}.
+            .
+          .
+        .
         article ${{class:'social-proof'}},
           ul,
             li aside,
               h1 ${"A fawning testimonial"}.
-              h2 ${"Some Jerk paid to say nice things"}..
+              h2 ${"Some Jerk paid to say nice things"}.
+            .
             li aside,
               h1 ${"A fawning testimonial"}.
               h2 ${"Some Jerk paid to say nice things"}..
             li aside,
               h1 ${"A fawning testimonial"}.
               h2 ${"Some Jerk paid to say nice things"}..
+          .
+        .
         article ${{class:'cta plan-chooser'}},
           ul,
             li aside,
@@ -97,7 +105,9 @@ import {w, C} from './index.js';
             li aside,
               h1 ${"Enterprise jerks"}.
               h2 ${"You'll pay us more than we need"}..
+          .
           p ${"You only got one shot at this"} button ${"Purchase something now!"}.
+        .
         footer ${{class:'meaningless-legaleze'}},
           ul,
             li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
@@ -106,7 +116,8 @@ import {w, C} from './index.js';
             li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
             li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
             li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
-         ..
+          . 
+        .
   `(document.body);
 
   }
