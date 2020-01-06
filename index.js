@@ -2,6 +2,8 @@ const DEBUG = false;
 C.maxLength = 3;
 const LOAD_OPERATOR = '.';
 const SAVE_OPERATOR = ',';
+const PARAM_OPERATOR = '$';
+const OPERATOR = /\.|,|$/g;
 
 export function C([tag], content = '', style = {}) {
   DEBUG && console.log({tag, content, style});
@@ -14,7 +16,6 @@ export function C([tag], content = '', style = {}) {
     let z = document.createElement(tag.shift());
     for ( const t of tag ) {
       z = z.appendChild(document.createElement(t));
-      console.log(z);
     }
 
   // insert local content at stack top
@@ -56,6 +57,8 @@ export function C([tag], content = '', style = {}) {
 export function w(tags, ...params) {
   const tagStack = [];
   tags = Array.from(tags);
+  tags = tags.join('$_');
+  tags = tags.split('_');
   let m, M;
   while( hasSlice(tags) ) {
     let [tag, content, style] = nextSlice(tags, params, tagStack);
@@ -65,14 +68,12 @@ export function w(tags, ...params) {
       throw new TypeError("Such tag sequences containing save and load operators are not implemented yet.");
     } else if ( loads && tag.startsWith(LOAD_OPERATOR) ) {
       tag = tag.slice(1);
-      console.log("Load", tag, M);
       ({savePoint:M} = tagStack.pop());
       if ( tag.length ) {
         tagStack.push({savePoint:M});
       }
     } else if ( saves && tag.startsWith(SAVE_OPERATOR) ) {
       tag = tag.slice(1);
-      console.log("Save", tag, M);
       tagStack.push({savePoint: M});
     } else if ( saves || loads ) {
       throw new TypeError("Using saves or loads in this configuration is not supported yet", tag);
@@ -80,6 +81,7 @@ export function w(tags, ...params) {
 
     tag = tag.trim(); 
 
+    console.log(M, tag, content, style);
     if ( tag.length ) {
       if ( ! m ) {
         const nextM = C.call("free", [tag], content, style);
@@ -100,41 +102,40 @@ function hasSlice(tags = []) {
 
 function nextSlice(tags = [], params = [], tagStack) {
   let tag = tags.shift();
-  let param;
-  if ( tag.includes(SAVE_OPERATOR) ) {
-    const idx = tag.indexOf(SAVE_OPERATOR);
-    if ( idx > 0 ) {
-      let [head, tail] = [tag.slice(0,idx), tag.slice(idx+1).trim()];
-      tag = head;
-      if ( tail.length ) {
-        tail  = SAVE_OPERATOR + " " + tail;
-        tags.unshift(tail);
+  let param = [];
+  const slice = {};
+  operators: while( tag.search(OPERATOR) > -1 ) {
+    const idx = tag.search(OPERATOR)
+    const type = tag[idx];
+    const [head, tail] = [tag.slice(0, idx).trim(), tag.slice(idx+1).trim()];
+    console.log(head, type, tail);
+    alert(1);
+    switch(type) {
+      case LOAD_OPERATOR:
+      case SAVE_OPERATOR: {
+        if ( head.length ) {
+          slice.tag = head;
+          tags.unshift(type + tail);
+        } else {
+          slice.tag = type;
+          tags.unshift(tail);
+        }
       }
-      param = [];
-    }
-  } else if ( tag.includes(LOAD_OPERATOR) ) {
-    const idx = tag.indexOf(LOAD_OPERATOR);
-    if ( idx > 0 ) {
-      let [head, tail] = [tag.slice(0,idx), tag.slice(idx+1).trim()];
-      tag = head;
-      if ( tail.length ) {
-        tail = LOAD_OPERATOR + " " + tail;
-        tags.unshift(tail);
+      break operators;
+      case PARAM_OPERATOR: {
+        if ( head.length ) {
+          tag = head;
+          param.push(params.shift());
+        } else {
+          throw new TypeError("This can't happen");
+        }
+        console.log(tag, param);
       }
-      param = [];
-    } else {
-      let [head, tail] = [tag.slice(0,idx), tag.slice(idx+1).trim()];
-      if ( tail.indexOf(LOAD_OPERATOR) == 0 ) {
-        tag = LOAD_OPERATOR;
-        tags.unshift(tail);
-        param = []
-      }
+      break operators;
     }
   }
-  if ( ! param ) {
-    param = [params.shift()];
-  }
-  while (tags.length && tags[0].trim().length == 0) {
+  console.log("OK");
+  while (tags.length && tags[0].trim() == PARAM_OPERATOR) {
     tags.shift();
     param.push(params.shift());
   }

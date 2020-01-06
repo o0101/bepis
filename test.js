@@ -58,5 +58,57 @@ import {w, C} from './index.js';
       li a ${{innerText: "Tests", href: 'tests.html'}}.
     `(document.body);
   }
+
+  {
+    w`
+      main, 
+        nav ${{class:'menubar'}}.
+        header ${{class:'banner'}}.
+        article ${{class:'feature-box'}},
+          ul,
+            li aside,
+              h1 ${"A stunning feature"}.
+              h2 ${"Amazing byline of the feature"}..
+            li aside,
+              h1 ${"A stunning feature"}.
+              h2 ${"Amazing byline of the feature"}..
+            li aside,
+              h1 ${"A stunning feature"}.
+              h2 ${"Amazing byline of the feature"}..
+        article ${{class:'social-proof'}},
+          ul,
+            li aside,
+              h1 ${"A fawning testimonial"}.
+              h2 ${"Some Jerk paid to say nice things"}..
+            li aside,
+              h1 ${"A fawning testimonial"}.
+              h2 ${"Some Jerk paid to say nice things"}..
+            li aside,
+              h1 ${"A fawning testimonial"}.
+              h2 ${"Some Jerk paid to say nice things"}..
+        article ${{class:'cta plan-chooser'}},
+          ul,
+            li aside,
+              h1 ${"Free tier"}.
+              h2 ${"THis one is for penniless losers"}..
+            li aside,
+              h1 ${"Reccomended options"}
+              h2 ${"You'll subsidize the free tier"}..
+            li aside,
+              h1 ${"Enterprise jerks"}.
+              h2 ${"You'll pay us more than we need"}..
+          p ${"You only got one shot at this"} button ${"Purchase something now!"}.
+        footer ${{class:'meaningless-legaleze'}},
+          ul,
+            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
+            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
+            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
+            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
+            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
+            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
+         ..
+  `(document.body);
+
+  }
 }
 
