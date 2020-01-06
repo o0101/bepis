@@ -8,7 +8,7 @@ Bepis is a crazy new way to write HTML + CSS in JavaScript.
 
 ## Examples
 
-Just some simple examples you can play with it online [here](https://jsfiddle.net/rjze2n3p/6/).
+Just some simple examples you can play with it online [here](https://jsfiddle.net/0Lpovy16/).
 
 ```javascript
 
@@ -34,7 +34,7 @@ w`form ${o} ${myStyle},
 
 // form with 3 field
 w`ul, 
-	li ${"Option 1"}, 
+	li ${"Option 1"}.
 	li ${"Option 2"},
 		p input ${{type:'submit'}}.
 		p form button ${"SAVE"}.
@@ -95,7 +95,7 @@ Also bepis is not meant for dynamic *updating* of HTML, only dynamic creation. S
 
 ## Related Projects
 
-I don't know. I didn't search any "prior art." Let me know how I reinvented this tiny misshapen wheel by opening a PR request.
+I don't know. I didn't search any "prior art." Let me know how I reinvented this beautiful wheel by opening a PR request.
 
 
 ----------
