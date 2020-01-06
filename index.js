@@ -1,9 +1,13 @@
+import {parse} from './parser.js';
+
 const DEBUG = false;
 C.maxLength = 3;
 const LOAD_OPERATOR = '.';
 const SAVE_OPERATOR = ',';
 const PARAM_OPERATOR = '$';
 const OPERATOR = /\.|,|$/g;
+
+export const w = parse;
 
 export function C([tag], content = '', style = {}) {
   DEBUG && console.log({tag, content, style});
@@ -54,7 +58,7 @@ export function C([tag], content = '', style = {}) {
     };
 }
 
-export function w(tags, ...params) {
+export function w_old(tags, ...params) {
   const tagStack = [];
   tags = Array.from(tags);
   tags = tags.join('$_');
