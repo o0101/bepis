@@ -1,6 +1,6 @@
 {
   "name": "bepis",
-  "version": "1.0.14",
+  "version": "2.0.0",
   "description": "bepis is a crazy new way to write HTML + CSS in JavaScript",
   "main": "index.js",
   "scripts": {
