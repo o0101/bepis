@@ -8,39 +8,69 @@ Bepis is a crazy new way to write HTML + CSS in JavaScript.
 
 ## Examples
 
-Just some simple examples you can play with it online [here](https://jsfiddle.net/0Lpovy16/).
+Just some simple examples you can play with it online [here](https://codesandbox.io/s/bepis-latest-playground-tucdl).
 
 ```javascript
-
-// setup constants
-const o = null;
-const {body} = document;
-const myStyle = {
-color: '#808080',
-background: 'linear-gradient(to right, lime, dodgerblue)',
-margin: 0
-};
-
-// form with 1 field
-w`form ${o} ${myStyle} p label ${"Name"} input ${{type:'text', placeholder:'your name'}}`(body);
-
-// form with 2 field
-w`form ${o} ${myStyle}, 
-	p label ${"Name"} input ${{required: true, type:'text', placeholder:'your name'}}.
-	p label ${"Email"} input ${{required: true, type:'email', placeholder:'your email'}}.
-	p label ${"Password"} input ${{required: true, type:'password', placeholder:'your password'}}.
-	p button ${"Sign up"} 
-`(body);
-
-// form with 3 field
-w`ul, 
-	li ${"Option 1"}.
-	li ${"Option 2"},
-		p input ${{type:'submit'}}.
-		p form button ${"SAVE"}.
-	.
-	li ${"Option 3"}.
-`(body);
+    w`
+      main, 
+        style ${'nav { position: sticky; top: 0 }'}
+        nav ${{class:'menubar'}} ${{background: 'purple'}}.
+        header ${{class:'banner'}}.
+        article ${{class:'feature-box'}},
+          ul,
+            li aside,
+              h1 ${"A stunning feature"}.
+              h2 ${"Amazing byline of the feature"}.
+            .
+            li aside,
+              h1 ${"A stunning feature"}.
+              h2 ${"Amazing byline of the feature"}.
+            .
+            li aside,
+              h1 ${"A stunning feature"}.
+              h2 ${"Amazing byline of the feature"}.
+            .
+          .
+        .
+        article ${{class:'social-proof'}},
+          ul,
+            li aside,
+              h1 ${"A fawning testimonial"}.
+              h2 ${"Some Jerk paid to say nice things"}.
+            .
+            li aside,
+              h1 ${"A fawning testimonial"}.
+              h2 ${"Some Jerk paid to say nice things"}..
+            li aside,
+              h1 ${"A fawning testimonial"}.
+              h2 ${"Some Jerk paid to say nice things"}..
+          .
+        .
+        article ${{class:'cta plan-chooser'}},
+          ul,
+            li aside,
+              h1 ${"Free tier"}.
+              h2 ${"THis one is for penniless losers"}..
+            li aside,
+              h1 ${"Reccomended options"}
+              h2 ${"You'll subsidize the free tier"}..
+            li aside,
+              h1 ${"Enterprise jerks"}.
+              h2 ${"You'll pay us more than we need"}..
+          .
+          p ${"You only got one shot at this"} button ${"Purchase something now!"}.
+        .
+        footer ${{class:'meaningless-legaleze'}},
+          ul,
+            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
+            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
+            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
+            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
+            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
+            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
+          . 
+        .
+  `(document.body);
 ```
 
 ## Get
@@ -52,14 +82,6 @@ $ npm i bepis
 ## Tutorial
 
 **Format**
-
-```
-w`tag-list ${content} ${style}`(insertionPoint)
-```
-where
-- tag-list := [html-tag-name ]+
-- content := string | object | null
-- style := object | null
 
 **Also**:
 - Use template literals tagged with `w`
@@ -84,7 +106,6 @@ Also bepis is not meant for dynamic *updating* of HTML, only dynamic creation. S
 
 ## Roadmap
 
-- Make parser better (it's [#1](an adhoc nightmare currently) but it works for the simple cases I need)
 - Create a HTML -> bepis converter, so you can take any HTML and convert it into a bepis script (just for fun and sort of as a way to test)
 - Make bepis friendly for the server (so replace `document.createElement` and associated Element API calls with more text based stuff).
 

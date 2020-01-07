@@ -10,10 +10,6 @@ import {w} from './index.js';
   };
 
   {
-    w`form ${o} ${myStyle} p label ${"Name"} input ${{type:'text', placeholder:'x your name'}}`(body);
-  }
-
-  {
     w`form ${o} ${myStyle}, 
       p label ${"Name"} input ${{required: true, type:'text', placeholder:'your name'}}.
       p label ${"Email"} input ${{required: true, type:'email', placeholder:'your email'}}.
@@ -23,30 +19,10 @@ import {w} from './index.js';
   }
 
   {
-    w`ul, 
-      li ${"Option 1"}.
-      li ${"Option 2"},
-        p input ${{type:'submit'}}.
-        p form button ${"SAVE"}.
-      .
-      li ${"Option 3"}.
-    `(body);
-  }
-
-  {
-    w`ul,
-      li a ${{innerText: "Bugs", href: 'bugs.html'}}.
-      li a ${{innerText: "Audits", href: 'audits.html'}}.
-      li a ${{innerText: "PDFs", href: 'pdfs.html'}}.
-      li a ${{innerText: "Isolation", href: 'isolation.html'}}.
-      li a ${{innerText: "Tests", href: 'tests.html'}}.
-    `(document.body);
-  }
-
-  {
     w`
       main, 
-        nav ${{class:'menubar'}}.
+        style ${'nav.menubar { position: sticky; top: 0 }'}.
+        nav ${{innerText:'Good', class:'menubar'}} ${{background: 'purple'}}.
         header ${{class:'banner'}}.
         article ${{class:'feature-box'}},
           ul,
