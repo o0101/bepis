@@ -26,7 +26,7 @@ import {w, C} from './index.js';
   }
 
   {
-    w`form ${o} ${myStyle} p label ${"Name"} input ${{type:'text', placeholder:'your name'}}`(body);
+    w`form ${o} ${myStyle} p label ${"Name"} input ${{type:'text', placeholder:'x your name'}}`(body);
   }
 
   {

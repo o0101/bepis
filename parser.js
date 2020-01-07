@@ -1,9 +1,25 @@
-export function parse(code, ...slots) {
+const DEBUG = false;
+
+export const C = w;
+export function w(code, ...slots) {
+  const root = buildTree(code, ...slots);
+  const rootElement = treeToDOM(root);
+
+  return point => {
+    say("Insert at", point, rootElement);
+    if ( point ) {
+      point.insertAdjacentElement('beforeEnd', rootElement);
+    }
+    return rootElement;
+  };
+}
+
+function buildTree(code, ...slots) {
   code = Array.from(code).join("$");
 
-  console.log(code);
+  say(code);
 
-  let slice = {tags: '', params: [], children: []};
+  let slice = {tag: '', params: [], children: []};
   const stack = [];
 
   for( const char of code ) {
@@ -12,9 +28,9 @@ export function parse(code, ...slots) {
       case '\t': 
       case '\n': 
       case '\r': {
-        if ( ! slice.finished && slice.tags.length ) {
+        if ( ! slice.finished && slice.tag.length ) {
           slice.finished = true;
-          console.log("Got", slice.tags);
+          say("Got", slice.tag);
         }
       }; break;
 
@@ -25,19 +41,20 @@ export function parse(code, ...slots) {
       case ',': {
         slice.finished = true;
         stack.push(slice);
-        console.log("Saved", slice.tags);
-        const newSlice = {tags: '', params: [], children: []}; 
+        say("Saved", slice.tag);
+        const newSlice = {tag: '', params: [], children: []}; 
         slice.children.push(newSlice);
         slice = newSlice;
       }; break;
 
       case '.': {
-        if ( slice.tags.length ) {
+        if ( slice.tag.length ) {
           slice.finished = true;
-          const newSlice = {tags: '', params: [], children: []}; 
+          // this can create an empty item that we remove after loop
+          const newSlice = {tag: '', params: [], children: []}; 
           const oldSlice = stack.pop();
           oldSlice.children.push(newSlice);
-          console.log("Reset to", oldSlice.tags);
+          say("Reset to", oldSlice.tag);
           stack.push(oldSlice);
           slice = newSlice;
         } else {
@@ -46,23 +63,102 @@ export function parse(code, ...slots) {
           oldSlice.children.splice(idx,1);
           oldSlice = stack.pop();
           oldSlice.children.push(slice);
-          console.log("Reset to", oldSlice.tags);
+          say("Reset to", oldSlice.tag);
           stack.push(oldSlice);
         }
       }; break;
 
       default: {
         if ( slice.finished ) {
-          const newSlice = {tags: '', params: [], children: []}; 
+          const newSlice = {tag: '', params: [], children: []}; 
           slice.children.push(newSlice);
           slice = newSlice;
         }
-        slice.tags += char;
+        slice.tag += char;
       }; break;
     }
   }
 
-  slice = stack.pop();
 
-  return point => console.log(point, {stack, slice});
+  // there could be an empty item
+  if (! slice.tag.length ) {
+    const parent = stack[0];  
+    if ( parent ) {
+      const idx = parent.children.indexOf(slice);
+      parent.children.splice(idx,1);
+    }
+  }
+
+  if ( stack.length ) {
+    slice = stack.pop();
+  }
+
+  if ( stack.length ) {
+    self.bepisParserError = {stack, slice};
+    throw new TypeError("Missing . operators. See self.bepisParserError for final state");
+  }
+
+  return slice;
+}
+
+function treeToDOM(root) {
+  const stack = [root];
+  let parentElement;
+
+  while( stack.length ) {
+    const item = stack.pop();
+
+    if ( item instanceof Element ) {
+      if ( item.parentElement ) {
+        parentElement = item.parentElement;
+      } else break;
+    } else if ( item.tag.length ) {
+      const element = document.createElement(item.tag);
+      say("Making", element);
+
+      specify(element, ...item.params);
+
+      if ( parentElement ) {
+        parentElement.append(element);
+      }
+      parentElement = element;
+
+      stack.push(element);
+      if ( item.children.length ) {
+        stack.push(...item.children.reverse());
+      }
+    } else {
+      console.log("Empty item", item);
+    }
+  }
+  say("Stack", stack, parentElement);
+  return parentElement;
+}
+
+function specify(element, content, style) {
+  // insert local content at stack top
+    if ( content == null || content == undefined ) {
+      // do nothing
+    } else if ( typeof content == "string" ) {
+      element.innerText = content;
+    } else if ( typeof content == "object" ) {
+      Object.keys(content).forEach(attrName => {
+        const attrValue = content[attrName];
+        try {
+          element.setAttribute(attrName, attrValue);
+        } catch(e) {}
+        try {
+          element[attrName] = attrValue;
+        } catch(e) {}
+      });
+    }
+
+  // apply style
+    Object.assign(element.style, style);
+}
+
+function say(...args) {
+  if ( DEBUG ) {
+    console.log(...args);
+  }
 }
