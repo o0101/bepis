@@ -6,6 +6,8 @@
 
 Bepis is a crazy new way to write HTML + CSS in JavaScript.
 
+[It Is On Npm](https://www.npmjs.com/package/bepis)
+
 ## Examples
 
 Just some simple examples you can play with it online [here](https://codesandbox.io/s/bepis-latest-playground-tucdl).
