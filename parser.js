@@ -1,6 +1,5 @@
 const DEBUG = false;
 
-export const C = w;
 export function w(code, ...slots) {
   const root = buildTree(code, ...slots);
   const rootElement = treeToDOM(root);
@@ -20,7 +19,7 @@ function buildTree(code, ...slots) {
   say(code);
 
   let slice = {tag: '', params: [], children: []};
-  const stack = [];
+  const stack = [slice];
 
   for( const char of code ) {
     switch(char) {
@@ -89,19 +88,16 @@ function buildTree(code, ...slots) {
     }
   }
 
-  if ( stack.length ) {
+  while ( stack.length ) {
     slice = stack.pop();
   }
 
-  if ( stack.length ) {
-    self.bepisParserError = {stack, slice};
-    throw new TypeError("Missing . operators. See self.bepisParserError for final state");
-  }
 
   return slice;
 }
 
 function treeToDOM(root) {
+  say("Root", root);
   const stack = [root];
   let parentElement;
 
@@ -128,9 +124,14 @@ function treeToDOM(root) {
         stack.push(...item.children.reverse());
       }
     } else {
-      console.log("Empty item", item);
+      say("Empty item", item);
     }
   }
+
+  while( parentElement.parentElement ) {
+    parentElement = parentElement.parentElement;
+  }
+
   say("Stack", stack, parentElement);
   return parentElement;
 }

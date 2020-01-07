@@ -1,4 +1,4 @@
-import {w, C} from './index.js';
+import {w} from './index.js';
 
 {
   const o = null;
@@ -8,22 +8,6 @@ import {w, C} from './index.js';
     background: 'linear-gradient(to right, lime, dodgerblue)',
     margin: 0
   };
-
-  {
-    const f = C`form ${o} ${myStyle}`(body);
-    const l = C`p label ${"Name"}`(f);
-    C`input ${{
-      type: 'text',
-      placeholder: 'your name'
-    }}`(l);
-  }
-
-  {
-    C`input ${{
-      type: 'text',
-      placeholder: 'your name'
-    }}`(C`p label ${"Name"}`(C`form ${o} ${myStyle}`(body)));
-  }
 
   {
     w`form ${o} ${myStyle} p label ${"Name"} input ${{type:'text', placeholder:'x your name'}}`(body);
