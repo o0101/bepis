@@ -4,7 +4,7 @@
 
 # bepis
 
-Bepis is a crazy new way to write HTML + CSS in JavaScript.
+Bepis is a crazy new way to write static HTML + CSS in JavaScript.
 
 [It Is On Npm](https://www.npmjs.com/package/bepis)
 
@@ -108,6 +108,7 @@ Also bepis is not meant for dynamic *updating* of HTML, only dynamic creation. S
 
 ## Roadmap
 
+- Multiple top level elements, and return a document fragment.
 - Create a HTML -> bepis converter, so you can take any HTML and convert it into a bepis script (just for fun and sort of as a way to test)
 - Make bepis friendly for the server (so replace `document.createElement` and associated Element API calls with more text based stuff).
 
