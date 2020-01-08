@@ -2,7 +2,7 @@
   <img src="readme-images/bepis-logo.jpg?raw=true" alt="Bepis Logo">
 </p>
 
-# bepis
+# [bepis](#dincc) ![download badge](https://img.shields.io/npm/dw/bepis) ![version badge](https://img.shields.io/npm/v/bepis/latest)
 
 Bepis is a crazy new way to write static HTML + CSS in JavaScript.
 
