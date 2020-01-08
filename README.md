@@ -13,65 +13,70 @@ Bepis is a crazy new way to write static HTML + CSS in JavaScript.
 Just some simple examples you can play with it online [here](https://codesandbox.io/s/bepis-latest-playground-tucdl).
 
 ```javascript
-    w`
-      main, 
-        style ${'nav { position: sticky; top: 0 }'}
-        nav ${{class:'menubar'}} ${{background: 'purple'}}.
-        header ${{class:'banner'}}.
-        article ${{class:'feature-box'}},
-          ul,
-            li aside,
-              h1 ${"A stunning feature"}.
-              h2 ${"Amazing byline of the feature"}.
-            .
-            li aside,
-              h1 ${"A stunning feature"}.
-              h2 ${"Amazing byline of the feature"}.
-            .
-            li aside,
-              h1 ${"A stunning feature"}.
-              h2 ${"Amazing byline of the feature"}.
-            .
-          .
-        .
-        article ${{class:'social-proof'}},
-          ul,
-            li aside,
-              h1 ${"A fawning testimonial"}.
-              h2 ${"Some Jerk paid to say nice things"}.
-            .
-            li aside,
-              h1 ${"A fawning testimonial"}.
-              h2 ${"Some Jerk paid to say nice things"}..
-            li aside,
-              h1 ${"A fawning testimonial"}.
-              h2 ${"Some Jerk paid to say nice things"}..
-          .
-        .
-        article ${{class:'cta plan-chooser'}},
-          ul,
-            li aside,
-              h1 ${"Free tier"}.
-              h2 ${"THis one is for penniless losers"}..
-            li aside,
-              h1 ${"Reccomended options"}
-              h2 ${"You'll subsidize the free tier"}..
-            li aside,
-              h1 ${"Enterprise jerks"}.
-              h2 ${"You'll pay us more than we need"}..
-          .
-          p ${"You only got one shot at this"} button ${"Purchase something now!"}.
-        .
-        footer ${{class:'meaningless-legaleze'}},
-          ul,
-            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
-            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
-            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
-            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
-            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
-            li a ${{innerText: "Some link you'll never be able to contact us by", href:"#go-die"}}.
-          . 
-        .
+import { w } from "bepis";
+
+// for console play
+window.w = w;
+
+// do some bepis
+w`
+main, 
+  style ${"nav.menubar {position: sticky; top: 0}"}. 
+  nav ${{ innerText: "Good" }} ${{ background: "purple" }}. 
+  header ${{ class: "banner" }}. 
+  article ${{ class: "feature-box" }}, 
+    ul, 
+      li aside, 
+        h1 ${"A stunning feature"}. 
+        h2 ${"Amazing byline of the feature"}..
+      li aside, 
+        h1 ${"A stunning feature"}. 
+        h2 ${"Amazing byline of the feature"}..
+      li aside,
+        h1 ${"A stunning feature"}. 
+        h2 ${"Amazing byline of the feature"}..
+  ..
+  article ${{ class: "social-proof" }},
+    ul,
+      li aside,
+        h1 ${"A fawning testimonial"}.
+        h2 ${"Some Jerk paid to say nice things"}.
+      .
+      li aside,
+        h1 ${"A fawning testimonial"}.
+        h2 ${"Some Jerk paid to say nice things"}..
+      li aside,
+        h1 ${"A fawning testimonial"}.
+        h2 ${"Some Jerk paid to say nice things"}..
+  ..
+  article ${{ class: "cta plan-chooser" }},
+    ul,
+      li aside,
+        h1 ${"Free tier"}.
+        h2 ${"THis one is for penniless losers"}..
+      li aside,
+        h1 ${"Reccomended options"}
+        h2 ${"You'll subsidize the free tier"}..
+      li aside,
+        h1 ${"Enterprise jerks"}.
+        h2 ${"You'll pay us more than we need"}..
+    .
+    p ${"You only got one shot at this"} button ${"Purchase something now!"}.
+  .
+  footer ${{ class: "meaningless-legaleze" }},
+    ul,
+      li a ${{
+        innerText: "Some link you'll never be able to contact us by",
+        href: "#go-die"
+      }}.
+      li a ${{
+        innerText: "Some link you'll never be able to contact us by",
+        href: "#go-die"
+      }}.
+      li a ${{
+        innerText: "Some link you'll never be able to contact us by",
+        href: "#go-die"
+      }}
   `(document.body);
 ```
 
