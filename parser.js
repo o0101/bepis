@@ -1,4 +1,4 @@
-const DEBUG = true;
+const DEBUG = false;
 const AsyncFunction = (async () => 1).__proto__.constructor;
 
 export function w(code, ...slots) {
