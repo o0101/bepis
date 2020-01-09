@@ -12,75 +12,41 @@ You can use [snowpack](https://github.com/pikapkg/snowpack).
 
 ## Examples
 
-Just a simple example:
+Just a simple example, [online here](https://codesandbox.io/s/bepis-latest-playground-r8c4k):
 
 ```html
 <script type=module>
   import {w} from './web_modules/bepis.js';
 
   w`
-    main,
-      header,
-        nav,
-          h1 ${"Style"}...
-      section ${{class:'content}},
+  main,
+    header.
+    section ${{class:'content'}},
+      section ${{class:'info'}},
         article dl,
-          dt ${"A feature"}.
-          dd ${"About this feature"}..
-        article dl,
-          dt ${"Another feature"}.
-          dd ${"About this other feature"}..
-      footer nav ul,
-        li a ${{href:'#about'}} #text ${"About"}.
-        li a ${{href:'#legal'}} #text ${"Legal"}.
-        li a ${{href:'#contact'}} #text ${"Contact"}.
-        li a ${{href:'#faq'}} #text ${"FAQ"}.
-        li a ${{href:'#support'}} #text ${"Support"}.
+          dt ${"Product Title"}.
+          dd ${"About this product"}.
+        .
+        br.br.
+      .
+      section ${{class:'action'}},
+        form ${{onsubmit:() => alert('?')}} fieldset,
+          legend #text ${"Good looking"}.
+          p label ${"Field"} input ${{required:true, placeholder:"Field"}}.
+          p label ${"Field"} textarea ${{required:true, placeholder:"Field"}}.
+          p button ${"Submit"}.
+        .
+      .
+    .
+    footer nav ul,
+      li a ${{href:'#about'}} #text ${"About"}.
+      li a ${{href:'#legal'}} #text ${"Legal"}.
+      li a ${{href:'#contact'}} #text ${"Contact"}.
+      li a ${{href:'#faq'}} #text ${"FAQ"}.
+      li a ${{href:'#support'}} #text ${"Support"}.
+    .
   `(document.body);
 </script>
-```
-
-Play with the following example [here](https://codesandbox.io/s/bepis-latest-playground-tucdl):
-
-```javascript
-import { w } from "bepis";
-
-// for console play
-window.w = w;
-
-// do some bepis
-w`
-main, 
-  style ${"nav.menubar {position: sticky; top: 0}"}. 
-  nav ${{ innerText: "Good" }} ${{ background: "purple" }}. 
-  header ${{ class: "banner" }}. 
-  article ${{ class: "feature-box" }}, 
-    ul, 
-      li aside,
-        h1 ${"A stunning feature"}. 
-        h2 ${"Amazing byline of the feature"}..
-  ..
-  article ${{ class: "social-proof" }},
-    ul,
-      li aside,
-        h1 ${"A fawning testimonial"}.
-        h2 ${"Some Jerk paid to say nice things"}..
-  ..
-  article ${{ class: "cta plan-chooser" }},
-    ul,
-      li aside,
-        h1 ${"Enterprise jerks"}.
-        h2 ${"You'll pay us more than we need"}..
-    .
-    p ${"You only got one shot at this"} button ${"Purchase something now!"}.
-  .
-  footer ${{ class: "meaningless-legaleze" }},
-    ul,
-      li a ${{
-        innerText: "Some link you'll never be able to contact us by",
-        href: "#go-die"
-      }}
-  `(document.body);
 ```
 
 ## Get
@@ -142,6 +108,11 @@ $ npm i bepis
 - Whitespace in the template literal has no special meaning and, except to separate tags, is ignored.
 - If you want to use the style parameter, but not the content parameter you need to put a null or undefined in the content parameter. I do this in the examples by using a variable set to null.
 - The last sequence of '.' operators in a bepis can **not** be omitted, otherwise those nodes will not be inserted.
+
+## Up next
+
+- component types. Pinned: singleton  or instance; free: clone. 
+- minimal diffing with updator functions.
 
 ## Related Projects
 
