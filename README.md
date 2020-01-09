@@ -111,7 +111,7 @@ $ npm i bepis
 - A tagged template literal returns an insertion function. Call that function with the Element you want to append this markup to.
 - Whitespace in the template literal has no special meaning and, except to separate tags, is ignored.
 - If you want to use the style parameter, but not the content parameter you need to put a null or undefined in the content parameter. I do this in the examples by using a variable set to null.
-- The last sequence of '.' operators in a bepis can be omitted.
+- The last sequence of '.' operators in a bepis can **not** be omitted, otherwise those nodes will not be inserted.
 
 ## Related Projects
 
