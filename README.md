@@ -30,12 +30,14 @@ Just a simple example:
         article dl,
           dt ${"Another feature"}.
           dd ${"About this other feature"}..
+      .
       footer nav ul,
         li a ${{href:'#about'}} #text ${"About"}.
         li a ${{href:'#legal'}} #text ${"Legal"}.
         li a ${{href:'#contact'}} #text ${"Contact"}.
         li a ${{href:'#faq'}} #text ${"FAQ"}.
         li a ${{href:'#support'}} #text ${"Support"}.
+      .
   `(document.body);
 </script>
 ```
