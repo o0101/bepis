@@ -86,9 +86,9 @@ main,
 $ npm i bepis
 ```
 
-## Tutorial
+## Basics
 
-- Use template literals tagged with `w`
+- Use template literals tagged with `w`. This creates a 'bepis'
 - Use ',' operator to save an insertion point
 - Use '.' operator to load an insertion point
 - After a tag path the first parameter is the content (string or Element properties object)
@@ -96,6 +96,38 @@ $ npm i bepis
 - A tagged template literal returns an insertion function. Call that function with the Element you want to append this markup to.
 - Whitespace in the template literal has no special meaning and, except to separate tags, is ignored.
 - If you want to use the style parameter, but not the content parameter you need to put a null or undefined in the content parameter. I do this in the examples by using a variable set to null.
+- The last sequence of '.' operators in a bepis can be omitted.
+
+## TCM
+
+*Traditional Chinese Medicine?* This time no. **#text, #map and #comp** directives.
+
+- Use `#text` to insert text nodes that have siblings. Use `.innerText` in the first param to set text without siblings.
+  ```javascript
+    w`
+    h1,
+      #text ${"The Bepis"}.
+      em ${"IS REALLY"}.
+      #text ${"the Best"}
+    `
+  ```
+- Use `#comp` to insert another "Component": a function returning an Element.
+  ```javascript
+    w`
+    button,
+      #text ${"Save"}.
+      #comp ${data} ${Spinner}
+    `
+  ```
+- Use `#map` to insert multiple.
+  ```javascript
+    const dataList = [{name:'He'}, {name:'Si'}, {name:'Kr'}];
+    const ItemBepis = item => w`li h1 ${item.name}`;
+    w`
+    ul,
+      #map ${dataList} ${ItemBepis}
+    `
+  ```
 
 
 ## Related Projects
