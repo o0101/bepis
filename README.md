@@ -109,9 +109,29 @@ $ npm i bepis
 - If you want to use the style parameter, but not the content parameter you need to put a null or undefined in the content parameter. I do this in the examples by using a variable set to null.
 - The last sequence of '.' operators in a bepis can **not** be omitted, otherwise those nodes will not be inserted.
 
+## Component types
+
+- Pinned: singleton, (the default), specify with no first parameter or first parameter equal `true`, e.g.
+  ```
+  const print1 = () => w`p label input ${{value:count++}}`
+  const print2 = () => w`${true} p label input ${{value:count++}}`
+  // equivalent
+  ```
+- Pinned: instance, specify with first parameter a key that identifies, e.g.
+  ```
+  const print = key => w`${key} p label input ${{value:count++}}`
+  ```
+- Free: multiple, specify with first parameter false, e.g.
+  ```
+  const print = () => w`${false} p label input ${{value:count++}}`
+  ```
+
+After mounting, a singleton component will always update in place when its bepis is called.
+Similarly, each instance component will update in place when its bepis is called with its key.
+Free components, create new markup, and must be mounted every call.
+
 ## Up next
 
-- component types. Pinned: singleton  or instance; free: clone. 
 - minimal diffing with updator functions.
 
 ## Related Projects
