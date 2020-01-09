@@ -10,7 +10,7 @@ Bepis is a crazy new way to write static HTML + CSS in JavaScript.
 
 ## Examples
 
-Just some simple examples you can play with it online [here](https://codesandbox.io/s/bepis-latest-playground-tucdl).
+Just some simple examples you can play with it online [here](https://codesandbox.io/s/bepis-latest-playground-tucdl):
 
 ```javascript
 import { w } from "bepis";
