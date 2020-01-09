@@ -26,12 +26,6 @@ main,
   header ${{ class: "banner" }}. 
   article ${{ class: "feature-box" }}, 
     ul, 
-      li aside, 
-        h1 ${"A stunning feature"}. 
-        h2 ${"Amazing byline of the feature"}..
-      li aside, 
-        h1 ${"A stunning feature"}. 
-        h2 ${"Amazing byline of the feature"}..
       li aside,
         h1 ${"A stunning feature"}. 
         h2 ${"Amazing byline of the feature"}..
@@ -40,23 +34,10 @@ main,
     ul,
       li aside,
         h1 ${"A fawning testimonial"}.
-        h2 ${"Some Jerk paid to say nice things"}.
-      .
-      li aside,
-        h1 ${"A fawning testimonial"}.
-        h2 ${"Some Jerk paid to say nice things"}..
-      li aside,
-        h1 ${"A fawning testimonial"}.
         h2 ${"Some Jerk paid to say nice things"}..
   ..
   article ${{ class: "cta plan-chooser" }},
     ul,
-      li aside,
-        h1 ${"Free tier"}.
-        h2 ${"THis one is for penniless losers"}..
-      li aside,
-        h1 ${"Reccomended options"}
-        h2 ${"You'll subsidize the free tier"}..
       li aside,
         h1 ${"Enterprise jerks"}.
         h2 ${"You'll pay us more than we need"}..
@@ -65,14 +46,6 @@ main,
   .
   footer ${{ class: "meaningless-legaleze" }},
     ul,
-      li a ${{
-        innerText: "Some link you'll never be able to contact us by",
-        href: "#go-die"
-      }}.
-      li a ${{
-        innerText: "Some link you'll never be able to contact us by",
-        href: "#go-die"
-      }}.
       li a ${{
         innerText: "Some link you'll never be able to contact us by",
         href: "#go-die"
@@ -85,18 +58,6 @@ main,
 ```
 $ npm i bepis
 ```
-
-## Basics
-
-- Use template literals tagged with `w`. This creates a 'bepis'
-- Use ',' operator to save an insertion point
-- Use '.' operator to load an insertion point
-- After a tag path the first parameter is the content (string or Element properties object)
-- After a tag path the second parameter is the style (inline style object scoped to that element)
-- A tagged template literal returns an insertion function. Call that function with the Element you want to append this markup to.
-- Whitespace in the template literal has no special meaning and, except to separate tags, is ignored.
-- If you want to use the style parameter, but not the content parameter you need to put a null or undefined in the content parameter. I do this in the examples by using a variable set to null.
-- The last sequence of '.' operators in a bepis can be omitted.
 
 ## TCM
 
@@ -113,6 +74,7 @@ $ npm i bepis
         #text ${" YES"}
     `(document.body);
   ```
+  
 - Use `#comp` to insert another "Component": a function returning an Element or String.
 
   ```javascript
@@ -126,6 +88,7 @@ $ npm i bepis
   - If first param is a function it is called to get the input to pass to second param.
   - Otherwise first param is passed to second param. The result inserted.
   - If second param is omitted, first param is a function. Its result inserted.
+  
 - Use `#map` to insert multiple.
 
   ```javascript
@@ -138,6 +101,17 @@ $ npm i bepis
   ```
   - The second parameter can be omitted when each list member is an Element or a String.
 
+## Basics
+
+- Use template literals tagged with `w`. This creates a 'bepis'
+- Use ',' operator to save an insertion point
+- Use '.' operator to load an insertion point
+- After a tag path the first parameter is the content (string or Element properties object)
+- After a tag path the second parameter is the style (inline style object scoped to that element)
+- A tagged template literal returns an insertion function. Call that function with the Element you want to append this markup to.
+- Whitespace in the template literal has no special meaning and, except to separate tags, is ignored.
+- If you want to use the style parameter, but not the content parameter you need to put a null or undefined in the content parameter. I do this in the examples by using a variable set to null.
+- The last sequence of '.' operators in a bepis can be omitted.
 
 ## Related Projects
 
