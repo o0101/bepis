@@ -125,12 +125,12 @@ function treeToDOM(root) {
         switch(item.tag) {
           case '#text': {
             if ( slice.params.length != 1 ) {
-              console.warn({errorDetails:{slice});
+              console.warn({errorDetails:{slice}});
               throw new TypeError(`Sorry, #text takes 1 parameter. ${slice.params.length} given.`);
             }
             const data = getData(slice.params[0]);
             if ( typeof data != "string" ) {
-              console.warn({errorDetails:{slice});
+              console.warn({errorDetails:{slice}});
               throw new TypeError(`Sorry, #text requires string data. ${data} given.`);
             }
           }; break;
@@ -139,7 +139,7 @@ function treeToDOM(root) {
             const [list, func] = slice.params;
             if ( ! parentElement ) {
               console.warn({errorDetails:{list,func}});
-              throw new TypeError('#map can't be used top level, sorry. Wrap in Element');
+              throw new TypeError('#map cannot be used top level, sorry. Wrap in Element');
             }
             if ( slice.params.length == 0 ) {
               console.warn({errorDetails:{list,func}});
@@ -161,8 +161,13 @@ function treeToDOM(root) {
             }
             const resultItems = [];
             for ( const item of data ) {
+              let result;
               if ( !! func ) {
-              const result = func(item);
+                result = func(item);
+              } else {
+                result = item;
+              }
+
               if ( result instanceof Element || typeof result == "string" ) {
                 resultItems.push(result);
               } else {
@@ -217,12 +222,12 @@ function treeToDOM(root) {
           }; break;
 
           default: {
-            console.warn({errorDetails:{item});
+            console.warn({errorDetails:{item}});
             throw new TypeError(`${item.tag} is an unknown directive.`);
           }
         }
         if ( item.children.length ) {
-          console.warn({errorDetails:{item});
+          console.warn({errorDetails:{item}});
           throw new TypeError("Sorry, this directive cannot have children");
         }
       } else {
