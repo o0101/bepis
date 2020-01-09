@@ -4,13 +4,27 @@
 
 # [bepis](#dincc) ![download badge](https://img.shields.io/npm/dw/bepis) ![version badge](https://img.shields.io/npm/v/bepis/latest)
 
-Bepis is a crazy new way to write static HTML + CSS in JavaScript.
+Bepis is a crazy new way to write dynamic HTML + CSS in JavaScript.
 
 [It Is On Npm](https://www.npmjs.com/package/bepis)
 
 You can use [snowpack](https://github.com/pikapkg/snowpack).
 
 ## Examples
+
+Simple keyed list:
+```javascript
+// setup
+const Item = item => w`${item.key} li p,
+      #text ${item.description}.
+      a ${{href:item.url}} #text ${item.name}.`;
+const list = items => w`ul #map ${items} ${Item}.`;
+
+// use
+list(myItems)(document.body);       // mount it
+myItems[3].name = newName;          // change something
+list(myItems);                      // only item 3 will change
+```
 
 Just a simple example, [online here](https://codesandbox.io/s/bepis-latest-playground-r8c4k):
 
