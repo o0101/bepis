@@ -145,6 +145,11 @@ $ npm i bepis
 - If you want to use the style parameter, but not the content parameter you need to put a null or undefined in the content parameter. I do this in the examples by using a variable set to null.
 - The last sequence of '.' operators in a bepis can **not** be omitted, otherwise those nodes will not be inserted.
 
+## Up next
+
+- component types. Pinned: singleton  or instance; free: clone. 
+- minimal diffing with updator functions.
+
 ## Related Projects
 
 I don't know. I didn't search any "prior art." Let me know how I reinvented this beautiful wheel by opening a PR request.
