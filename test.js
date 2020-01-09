@@ -9,7 +9,6 @@ import {w} from './index.js';
     margin: 0
   };
 
-  /**
   {
     w`form ${o} ${myStyle}, 
       p label ${"Name"} input ${{required: true, type:'text', placeholder:'your name'}}.
@@ -81,7 +80,6 @@ import {w} from './index.js';
         .
   `(document.body);
   }
-  **/
 
   // #text test
   {
@@ -154,5 +152,78 @@ import {w} from './index.js';
       p button ${"Sign up"} 
     `(body);
   }
+
+  const intervals = [];
+  // pin <key> test (instance)
+  // passes
+  {
+    // should print 2 widgets that are 'pinned' to their mount locations
+
+    let count = 0;
+    let print = key => w`
+      ${key}
+      p label ${"Great " + key + " " + count++} input ${{value:"hat " + count}}`;
+      
+    // mount
+    print('abc123')(document.body);
+    print('abc124')(document.body);
+
+    intervals.push(setInterval(() => print('abc123'), 1000));
+    intervals.push(setInterval(() => print('abc124'), 500));
+  }
+
+  // pin true test (singleton)
+  // passes
+  {
+    // should print only 1 widget updating every 500ms
+
+    let count = 0;
+    let print = key => w`
+      ${true}
+      p label ${"Great " + count++} input ${{value:"hat " + count}}`;
+
+    //mount
+    print()(document.body);
+
+    intervals.push(setInterval(() => print('abc123'), 1000));
+    intervals.push(setInterval(() => print('abc124'), 500));
+  }
+
+  // pin false test (free)
+  // passes
+  {
+    // should print a new widget every 500ms
+
+    let count = 0;
+    let print = key => w`
+      ${false}
+      p label ${"Great " + count++} input ${{value:"hat " + count}}`;
+
+    intervals.push(setInterval(() => print('abc123')(document.body), 1000));
+    intervals.push(setInterval(() => print('abc124')(document.body), 500));
+  }
+
+  // pin <key> no duplication on re-mount test
+  // passes
+  {
+    // should print only 2 widgets even tho re-mounted each call
+
+    let count = 0;
+    let print = key => w`
+      ${key}
+      p label ${"Great " + key + " " + count++} input ${{value:"hat " + count}}`;
+      
+    // mount
+    print('abc123')(document.body);
+    print('abc124')(document.body);
+
+    intervals.push(setInterval(() => print('abc123')(document.body), 1000));
+    intervals.push(setInterval(() => print('abc124')(document.body), 500));
+  }
+
+  setTimeout(() => {
+    console.log("Clearing intervals " + intervals.join(','));
+    intervals.forEach(i => clearInterval(i)); 
+  }, 5000);
 }
 

@@ -1,24 +1,71 @@
 const DEBUG = false;
 const AsyncFunction = (async () => 1).__proto__.constructor;
+const Cache = new Map();
 
 export function w(code, ...slots) {
-  const root = buildTree(code, ...slots);
-  const rootElement = treeToDOM(root);
+  let pinValue = true;
+  let cacheKey;
+  code = Array.from(code).join("$").trim();
+
+  say(code);
+
+  if ( code.startsWith('$') ) {   // we got the pin parameter
+    code = code.slice(1).trim();
+    pinValue = slots.shift();
+    say("Got pin parameter", pinValue);
+  }
+
+  if ( pinValue == false ) {
+    // don't use the cache, a free component
+    cacheKey = null;
+  } else if ( pinValue != true ) {
+    // use the cache with a key, an insteance component
+    cacheKey = `${code}:${pinValue}`;
+  } else {
+    // pinValue == true, the default, a singleton component
+    // so do nothing
+    cacheKey = `${code}:singleton`;
+  }
+
+  let update = true;
+  let existingRootElement;
+
+  if ( cacheKey != null ) {
+    if ( Cache.has(cacheKey) ) {
+      const {rootElement, slots:existingSlots} = Cache.get(cacheKey);
+      if ( !equals(slots, existingSlots) ) {
+        // update
+        say("Slots changed. Updating", rootElement);
+      } else {
+        say("No change in slots. Not updating", rootElement);
+        update = false;
+      }
+      existingRootElement = rootElement;
+    }
+  }
+
+  if ( update ) {
+    const root = buildTree(code, ...slots);
+    const rootElement = treeToDOM(root);
+
+    if ( existingRootElement ) {
+      existingRootElement.replaceWith(rootElement);
+    }
+    existingRootElement = rootElement;
+
+    Cache.set(cacheKey, {rootElement, slots}); 
+  }
 
   return point => {
-    say("Insert at", point, rootElement);
+    say("Insert at", point, existingRootElement);
     if ( point ) {
-      point.insertAdjacentElement('beforeEnd', rootElement);
+      point.insertAdjacentElement('beforeEnd', existingRootElement);
     }
-    return rootElement;
+    return existingRootElement;
   };
 }
 
 function buildTree(code, ...slots) {
-  code = Array.from(code).join("$");
-
-  say(code);
-
   let slice = {tag: '', params: [], children: []};
   const stack = [slice];
 
@@ -312,4 +359,35 @@ function say(...args) {
   if ( DEBUG ) {
     console.log(...args);
   }
+}
+
+function equals(arr1, arr2) {
+  if (arr1.length != arr2.length) {
+    return false;
+  }
+
+  let eq = true;
+
+  for( let i = 0; i < arr1.length; i++) {
+    const item1 = arr1[i];
+    const item2 = arr2[i];
+
+    if ( typeof item1 == "string" ) {
+      eq = item1 == item2; 
+    } else if ( item1 instanceof Function ) {
+      eq = item1 == item2;
+    } else if ( typeof item1 == "number" ) {
+      eq = item1 == item2;
+    } else if ( Array.isArray(item1) ) {
+      eq = equals(item1, item2);
+    } else if ( !!item1 && typeof item1 == "object" ) {
+      eq = JSON.stringify(item1) == JSON.stringify(item2);
+    } else  {
+      eq = false;
+    }
+
+    if ( ! eq ) break;
+  }
+
+  return eq;
 }
