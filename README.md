@@ -103,15 +103,18 @@ $ npm i bepis
 *Traditional Chinese Medicine?* This time no. **#text, #map and #comp** directives.
 
 - Use `#text` to insert text nodes that have siblings. Use `.innerText` in the first param to set text without siblings.
+
   ```javascript
     w`
-    h1,
-      #text ${"The Bepis"}.
-      em ${"IS REALLY"}.
-      #text ${"the Best"}
-    `
+      h1,
+        #text ${"Bepis is "}.
+        em ${"REALLY"}.
+        #text ${" the best!"}.
+        #text ${" YES"}
+    `(document.body);
   ```
 - Use `#comp` to insert another "Component": a function returning an Element or String.
+
   ```javascript
     const Spinner = () => w`i ${{class:'fa-spinner', hidden:true}}`;
     w`
@@ -120,10 +123,11 @@ $ npm i bepis
       #comp ${data} ${Spinner}
     `
   ```
-  If first param is a function it is called to get the input to pass to second param.
-  Otherwise first param is passed to second param. The result inserted.
-  If second param is omitted, first param is a function. Its result inserted.
+  - If first param is a function it is called to get the input to pass to second param.
+  - Otherwise first param is passed to second param. The result inserted.
+  - If second param is omitted, first param is a function. Its result inserted.
 - Use `#map` to insert multiple.
+
   ```javascript
     const dataList = [{name:'He'}, {name:'Si'}, {name:'Kr'}];
     const ItemBepis = item => w`li h1 ${item.name}`;
@@ -132,7 +136,7 @@ $ npm i bepis
       #map ${dataList} ${ItemBepis}
     `
   ```
-  The second parameter can be omitted when each list member is an Element or a String.
+  - The second parameter can be omitted when each list member is an Element or a String.
 
 
 ## Related Projects
