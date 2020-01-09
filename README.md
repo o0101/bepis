@@ -8,9 +8,39 @@ Bepis is a crazy new way to write static HTML + CSS in JavaScript.
 
 [It Is On Npm](https://www.npmjs.com/package/bepis)
 
+You can use [snowpack](https://github.com/pikapkg/snowpack).
+
 ## Examples
 
-Just some simple examples you can play with it online [here](https://codesandbox.io/s/bepis-latest-playground-tucdl):
+Just a simple example:
+
+```html
+<script type=module>
+  import {w} from './web_modules/bepis.js';
+
+  w`
+    main,
+      header,
+        nav,
+          h1 ${"Style"}...
+      section ${{class:'content}},
+        article dl,
+          dt ${"A feature"}.
+          dd ${"About this feature"}..
+        article dl,
+          dt ${"Another feature"}.
+          dd ${"About this other feature"}..
+      footer nav ul,
+        li a ${{href:'#about'}} #text ${"About"}.
+        li a ${{href:'#legal'}} #text ${"Legal"}.
+        li a ${{href:'#contact'}} #text ${"Contact"}.
+        li a ${{href:'#faq'}} #text ${"FAQ"}.
+        li a ${{href:'#support'}} #text ${"Support"}.
+  `(document.body);
+</script>
+```
+
+Play with the following example [here](https://codesandbox.io/s/bepis-latest-playground-tucdl):
 
 ```javascript
 import { w } from "bepis";
