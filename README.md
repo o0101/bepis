@@ -111,14 +111,18 @@ $ npm i bepis
       #text ${"the Best"}
     `
   ```
-- Use `#comp` to insert another "Component": a function returning an Element.
+- Use `#comp` to insert another "Component": a function returning an Element or String.
   ```javascript
+    const Spinner = () => w`i ${{class:'fa-spinner', hidden:true}}`;
     w`
     button,
       #text ${"Save"}.
       #comp ${data} ${Spinner}
     `
   ```
+  If first param is a function it is called to get the input to pass to second param.
+  Otherwise first param is passed to second param. The result inserted.
+  If second param is omitted, first param is a function. Its result inserted.
 - Use `#map` to insert multiple.
   ```javascript
     const dataList = [{name:'He'}, {name:'Si'}, {name:'Kr'}];
@@ -128,6 +132,7 @@ $ npm i bepis
       #map ${dataList} ${ItemBepis}
     `
   ```
+  The second parameter can be omitted when each list member is an Element or a String.
 
 
 ## Related Projects

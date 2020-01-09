@@ -1,4 +1,5 @@
 const DEBUG = false;
+const AsyncFunction = (async () => 1).__proto__.constructor;
 
 export function w(code, ...slots) {
   const root = buildTree(code, ...slots);
@@ -67,6 +68,17 @@ function buildTree(code, ...slots) {
         }
       }; break;
 
+      case '#': {
+        if ( ! slice.finished && slice.tag.length ) {
+          slice.finished = true;
+          say("Got", slice.tag);
+        }
+        const newSlice = {tag: '', params: [], children: [], directive: true}; 
+        slice.children.push(newSlice);
+        slice = newSlice;
+        slice.tag += char;
+      }; break;
+
       default: {
         if ( slice.finished ) {
           const newSlice = {tag: '', params: [], children: []}; 
@@ -109,19 +121,125 @@ function treeToDOM(root) {
         parentElement = item.parentElement;
       } else break;
     } else if ( item.tag.length ) {
-      const element = document.createElement(item.tag);
-      say("Making", element);
+      if ( item.directive ) {
+        switch(item.tag) {
+          case '#text': {
+            if ( slice.params.length != 1 ) {
+              console.warn({errorDetails:{slice});
+              throw new TypeError(`Sorry, #text takes 1 parameter. ${slice.params.length} given.`);
+            }
+            const data = getData(slice.params[0]);
+            if ( typeof data != "string" ) {
+              console.warn({errorDetails:{slice});
+              throw new TypeError(`Sorry, #text requires string data. ${data} given.`);
+            }
+          }; break;
 
-      specify(element, ...item.params);
+          case '#map': {
+            const [list, func] = slice.params;
+            if ( ! parentElement ) {
+              console.warn({errorDetails:{list,func}});
+              throw new TypeError('#map can't be used top level, sorry. Wrap in Element');
+            }
+            if ( slice.params.length == 0 ) {
+              console.warn({errorDetails:{list,func}});
+              throw new TypeError('#map requires at least 1 argument');
+            }
+            if ( !!func && !(func instanceof Function) ) {
+              console.warn({errorDetails:{list,func}});
+              throw new TypeError('#map second parameter, if given, must be a function');
+            } else if (func instanceof AsyncFunction ) {
+              console.warn({errorDetails:{list,func}});
+              throw new TypeError('Sorry, #map does not support AsyncFunctions. Maybe later.');
+            }
+            let data = getData(list);
+            try {
+              data = Array.from(data);
+            } catch(e) {
+              console.warn({errorDetails:{list,data,func}});
+              throw new TypeError("Sorry, #map requires data that can be iterated.");
+            }
+            const resultItems = [];
+            for ( const item of data ) {
+              if ( !! func ) {
+              const result = func(item);
+              if ( result instanceof Element || typeof result == "string" ) {
+                resultItems.push(result);
+              } else {
+                console.warn({errorDetails:{list,func}});
+                throw new TypeError("#map must produce a list where each item is either an Element or a string");
+              }
+            }
+            for ( const resultItem of resultItems ) {
+              if ( resultItem instanceof Element ) {
+                parentElement.append(resultItem);
+              } else if ( typeof resultItem == "string" ) {
+                parentElement.insertAdjacentText('beforeEnd', resultItem);
+              }
+            }
+          }; break;
 
-      if ( parentElement ) {
-        parentElement.append(element);
-      }
-      parentElement = element;
+          case '#comp': {
+            const [maybeDataOrFunc, func] = slice.params;
+            if ( slice.params.length == 0 ) {
+              console.warn({errorDetails:{maybeDataOrFunc,func}});
+              throw new TypeError('#comp requires at least 1 argument');
+            }
+            if ( !!func && !(func instanceof Function) ) {
+              console.warn({errorDetails:{maybeDataOrFunc,func}});
+              throw new TypeError('#comp second parameter, if given, must be a function');
+            } else if (func instanceof AsyncFunction ) {
+              console.warn({errorDetails:{maybeDataOrFunc,func}});
+              throw new TypeError('Sorry, #comp does not support AsyncFunctions. Maybe later.');
+            }
+            if ( !func ) {
+              func = x => x;
+            }
+            let data = getData(maybeDataOrFunc);
+            const result = func(data);
+            if ( result instanceof Element ) {
+              if ( parentElement ) {
+                parentElement.append(result);
+              }
+              parentElement = result;
+              stack.push(result);
+            } else if ( typeof result == "string" ) {
+              if ( parentElement ) {
+                parentElement.insertAdjacentText('beforeEnd', result);
+              } else {
+                console.warn({errorDetails:{maybeDataOrFunc,func, result}});
+                throw new TypeError('Sorry, #comp cannot insert text at the top level.');
+              }
+            } else {
+              console.warn({errorDetails:{maybeDataOrFunc,func, result}});
+              throw new TypeError(`Sorry, #comp can only insert an Element or a string. ${result} given.`);
+            }
+          }; break;
 
-      stack.push(element);
-      if ( item.children.length ) {
-        stack.push(...item.children.reverse());
+          default: {
+            console.warn({errorDetails:{item});
+            throw new TypeError(`${item.tag} is an unknown directive.`);
+          }
+        }
+        if ( item.children.length ) {
+          console.warn({errorDetails:{item});
+          throw new TypeError("Sorry, this directive cannot have children");
+        }
+      } else {
+        const element = document.createElement(item.tag);
+        say("Making", element);
+
+        specify(element, ...item.params);
+
+        if ( parentElement ) {
+          parentElement.append(element);
+        }
+        parentElement = element;
+
+        stack.push(element);
+        if ( item.children.length ) {
+          stack.push(...item.children.reverse());
+        }
       }
     } else {
       say("Empty item", item);
@@ -156,6 +274,18 @@ function specify(element, content, style) {
 
   // apply style
     Object.assign(element.style, style);
+}
+
+function getData(maybeFunc) {
+  if ( maybeFunc instanceof Function ) {
+    if ( maybeFunc instanceof AsyncFunction ) {
+      console.warn({errorDetails:{maybeFunc}});
+      throw new TypeError("Sorry, AsyncFunctions as data producing functions are not supported. Maybe in future.");
+    }
+    maybeFunc = maybeFunc();
+  } else {
+    return maybeFunc;
+  }
 }
 
 function say(...args) {
