@@ -1,7 +1,7 @@
 import {w} from './index.js';
 
 {
-  const o = null;
+  const o = undefined;
   const {body} = document;
   const myStyle = {
     color: '#808080',
@@ -9,6 +9,7 @@ import {w} from './index.js';
     margin: 0
   };
 
+  /**
   {
     w`form ${o} ${myStyle}, 
       p label ${"Name"} input ${{required: true, type:'text', placeholder:'your name'}}.
@@ -79,7 +80,79 @@ import {w} from './index.js';
           . 
         .
   `(document.body);
+  }
+  **/
 
+  // #text test
+  {
+    w`
+      h1,
+        #text ${"Bepis is "}.
+        em ${"REALLY"}.
+        #text ${" the best!"}.
+        #text ${" YES"}
+    `(document.body);
+  }
+  // #comp test
+  {
+    const data = [
+      {name:"Name", spec: {required: true, type:'text', placeholder:'your name'}},
+      {name:"Email", spec: {required: true, type:'text', placeholder:'your email'}},
+      {name:"Password", spec: {required: true, type:'text', placeholder:'your password'}},
+    ];
+    const field = ({name, spec}) => w`p label ${name} input ${spec}`();
+
+    const form = ({x,y} = {}) => w`form ${o} ${myStyle}, 
+        #map ${data} ${field}.
+        p button ${x || y ? `Sign Up ${x+y}`: "Sign Up"} 
+      `();
+
+    w`
+      article,
+        h1 ${"Godot Waited"}.
+        section ${{class:'form'}},
+          p ${"Fill it out"}.
+          #comp ${o} ${form}.
+          p ${"End of section"}
+    `(document.body);
+
+    w`
+      article,
+        h1 ${"Godot Waited with data function"}.
+        section ${{class:'form'}},
+          p ${"Fill it out"}.
+          #comp ${() => ({x:1,y:2})} ${form}.
+          p ${"End of section"}
+    `(document.body);
+
+    w`
+      article,
+        h1 ${"Godot Waited with 1 param comp on form"}.
+        section ${{class:'form'}},
+          p ${"Fill it out"}.
+          #comp ${form}.
+          p ${"End of section"}
+    `(document.body);
+  }
+
+  // #map test
+  {
+    const data = [
+      {name:"Name", spec: {required: true, type:'text', placeholder:'your name'}},
+      {name:"Email", spec: {required: true, type:'text', placeholder:'your email'}},
+      {name:"Password", spec: {required: true, type:'text', placeholder:'your password'}},
+    ];
+    const field = ({name, spec}) => w`p label ${name} input ${spec}`();
+
+    w`form ${o} ${myStyle}, 
+      #map ${data} ${field}.
+      p button ${"Sign up"} 
+    `(body);
+
+    w`form ${"Excellent Form with Data Function"} ${myStyle}, 
+      #map ${() => data} ${field}.
+      p button ${"Sign up"} 
+    `(body);
   }
 }
 

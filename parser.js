@@ -1,4 +1,4 @@
-const DEBUG = false;
+const DEBUG = true;
 const AsyncFunction = (async () => 1).__proto__.constructor;
 
 export function w(code, ...slots) {
@@ -30,7 +30,7 @@ function buildTree(code, ...slots) {
       case '\r': {
         if ( ! slice.finished && slice.tag.length ) {
           slice.finished = true;
-          say("Got", slice.tag);
+          say("Got", slice.tag, slice);
         }
       }; break;
 
@@ -69,14 +69,20 @@ function buildTree(code, ...slots) {
       }; break;
 
       case '#': {
+        // note that no space is required between a tag and a directive
         if ( ! slice.finished && slice.tag.length ) {
           slice.finished = true;
           say("Got", slice.tag);
         }
-        const newSlice = {tag: '', params: [], children: [], directive: true}; 
-        slice.children.push(newSlice);
-        slice = newSlice;
+        if ( slice.finished ) {
+          const newSlice = {tag: '', params: [], children: [], directive: true}; 
+          slice.children.push(newSlice);
+          slice = newSlice;
+        } else {
+          slice.directive = true;
+        }
         slice.tag += char;
+        say("Directive start", slice);
       }; break;
 
       default: {
@@ -122,26 +128,33 @@ function treeToDOM(root) {
       } else break;
     } else if ( item.tag.length ) {
       if ( item.directive ) {
+        say("Directive", item);
         switch(item.tag) {
           case '#text': {
-            if ( slice.params.length != 1 ) {
-              console.warn({errorDetails:{slice}});
-              throw new TypeError(`Sorry, #text takes 1 parameter. ${slice.params.length} given.`);
+            if ( item.params.length != 1 ) {
+              console.warn({errorDetails:{item}});
+              throw new TypeError(`Sorry, #text takes 1 parameter. ${item.params.length} given.`);
             }
-            const data = getData(slice.params[0]);
+            const data = getData(item.params[0]);
             if ( typeof data != "string" ) {
-              console.warn({errorDetails:{slice}});
+              console.warn({errorDetails:{item}});
               throw new TypeError(`Sorry, #text requires string data. ${data} given.`);
             }
+            if ( ! parentElement ) {
+              console.warn({errorDetails:{item}});
+              throw new TypeError('Sorry, #text cannot insert at top level');
+            }
+            parentElement.insertAdjacentText('beforeEnd', data);
           }; break;
 
           case '#map': {
-            const [list, func] = slice.params;
+            say("Got map", item);
+            const [list, func] = item.params;
             if ( ! parentElement ) {
               console.warn({errorDetails:{list,func}});
               throw new TypeError('#map cannot be used top level, sorry. Wrap in Element');
             }
-            if ( slice.params.length == 0 ) {
+            if ( item.params.length == 0 ) {
               console.warn({errorDetails:{list,func}});
               throw new TypeError('#map requires at least 1 argument');
             }
@@ -185,8 +198,8 @@ function treeToDOM(root) {
           }; break;
 
           case '#comp': {
-            const [maybeDataOrFunc, func] = slice.params;
-            if ( slice.params.length == 0 ) {
+            let [maybeDataOrFunc, func] = item.params;
+            if ( item.params.length == 0 ) {
               console.warn({errorDetails:{maybeDataOrFunc,func}});
               throw new TypeError('#comp requires at least 1 argument');
             }
@@ -216,7 +229,7 @@ function treeToDOM(root) {
                 throw new TypeError('Sorry, #comp cannot insert text at the top level.');
               }
             } else {
-              console.warn({errorDetails:{maybeDataOrFunc,func, result}});
+              console.warn({errorDetails:{maybeDataOrFunc,func, result, data}});
               throw new TypeError(`Sorry, #comp can only insert an Element or a string. ${result} given.`);
             }
           }; break;
@@ -282,15 +295,17 @@ function specify(element, content, style) {
 }
 
 function getData(maybeFunc) {
+  let data;
   if ( maybeFunc instanceof Function ) {
     if ( maybeFunc instanceof AsyncFunction ) {
       console.warn({errorDetails:{maybeFunc}});
       throw new TypeError("Sorry, AsyncFunctions as data producing functions are not supported. Maybe in future.");
     }
-    maybeFunc = maybeFunc();
+    data = maybeFunc();
   } else {
-    return maybeFunc;
+    data = maybeFunc;
   }
+  return data;
 }
 
 function say(...args) {
