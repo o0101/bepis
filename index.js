@@ -30,12 +30,11 @@
     if ( cacheKey != null ) {
       if ( Cache.has(cacheKey) ) {
         const {rootElement, slots:existingSlots} = Cache.get(cacheKey);
-        if ( !equals(slots, existingSlots) ) {
-          // update
+        update = !equals(slots, existingSlots);
+        if ( update ) {
           say(DEV, "Slots changed. Updating", rootElement);
         } else {
           say(DEV, "No change in slots. Not updating", rootElement);
-          update = false;
         }
         existingRootElement = rootElement;
       }
@@ -43,11 +42,15 @@
 
     if ( update ) {
       const root = buildTree(code, ...slots);
-      const rootElement = treeToDOM(root, Cache.has(cacheKey));
+      let rootElement;
 
       if ( existingRootElement ) {
-        say(DEV,"Replace", existingRootElement, "with", rootElement);
+        //say(DEV,"Replace", existingRootElement, "with", rootElement);
+        rootElement = treeToDOM(root);
+        //rootElement = updateDOMWithTree(existingRootElement, root);
         existingRootElement.replaceWith(rootElement);
+      } else {
+        rootElement = treeToDOM(root);
       }
       existingRootElement = rootElement;
 
