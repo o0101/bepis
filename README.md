@@ -73,8 +73,6 @@ setTimeout(() => List(myChangedItems), 2000);
 - Use ',' operator to save an insertion point
 - Use '.' operator to load an insertion point
 - `<tag name> ${attributes} ${styles}` is the format.
-- `w` returns a mount function.
-- If there's a parameter in w before any tags, it sets component type. Unique key gives a pinned component, true gives singleton. False, the default, gives a free component.
 - Whitespace is ignored.
 
 ## Up next
