@@ -6,8 +6,12 @@
   "module": "index.js",
   "browser": "dist/index.js",
   "scripts": {
-    "test": "serve -p 8080"
+    "test": "serve -p 8080",
+    "build": "parcel build index.js --no-source-maps"
   },
+  "browserslist": [
+    "> 5%"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/crislin2046/bepis.git"
