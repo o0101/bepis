@@ -36,9 +36,9 @@ Make some views:
 const Item = item => w` ${item.key} 
   li p, 
     :text ${item.description}.
-    a ${{ href: item.url }} :text ${item.name}..`;
+    a ${{ href: item.url }} :text ${item.name}..`
 
-const List = items => w` ${true} ul :map ${items} ${Item}`;
+const List = items => w` ${true} ul :map ${items} ${Item}`
 ```
 
 Render the data and mount the view to the document
@@ -59,7 +59,7 @@ setTimeout(() => List(myChangedItems), 2000);
 - Use `:text` to insert text, and `:map` to insert lists, as in the above example.
 - Use `:comp` to insert components:
   ```javascript
-    const Spinner = () => w`i ${{class:'fa-spinner', hidden:true}}`;
+    const Spinner = () => w`i ${{class:'fa-spinner', hidden:true}}`
     w`
     button,
       :text ${"Save"}.
