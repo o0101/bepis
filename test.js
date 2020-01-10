@@ -9,6 +9,7 @@ import {w} from './index.js';
     margin: 0
   };
 
+  /**
   {
     w`form ${o} ${myStyle}, 
       p label ${"Name"} input ${{required: true, type:'text', placeholder:'your name'}}.
@@ -91,6 +92,7 @@ import {w} from './index.js';
         :text ${" YES"}
     `(document.body);
   }
+  **/
   // :comp test
   {
     const data = [
@@ -107,7 +109,7 @@ import {w} from './index.js';
 
     w`
       article,
-        h1 ${"Godot Waited"}.
+        h1 ${"Godot Waited!!"}.
         section ${{class:'form'}},
           p ${"Fill it out"}.
           :comp ${o} ${form}.
@@ -133,6 +135,7 @@ import {w} from './index.js';
     `(document.body);
   }
 
+  /**
   // :map test
   {
     const data = [
@@ -225,5 +228,6 @@ import {w} from './index.js';
     console.log("Clearing intervals " + intervals.join(','));
     intervals.forEach(i => clearInterval(i)); 
   }, 5000);
+  **/
 }
 

@@ -125,7 +125,7 @@ $ npm i bepis
 
 ## Component types
 
-- Pinned: singleton, (the default), specify with no first parameter or first parameter equal `true`, e.g.
+- Pinned: singleton, specify with first parameter equal `true`, e.g.
   ```
   const print1 = () => w`p label input ${{value:count++}}`
   const print2 = () => w`${true} p label input ${{value:count++}}`
@@ -135,7 +135,7 @@ $ npm i bepis
   ```
   const print = key => w`${key} p label input ${{value:count++}}`
   ```
-- Free: multiple, specify with first parameter false, e.g.
+- Free: multiple (the default), specify with no first parameter or first parameter false, e.g.
   ```
   const print = () => w`${false} p label input ${{value:count++}}`
   ```

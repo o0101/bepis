@@ -3,8 +3,8 @@
   const Cache = new Map();
 
   export function w(code, ...slots) {
-    let pinValue = true;
-    let cacheKey;
+    let pinValue = false;
+    let cacheKey = null;
     code = Array.from(code).join("$").trim();
 
     say(code);
@@ -15,16 +15,12 @@
       say("Got pin parameter", pinValue);
     }
 
-    if ( pinValue == false ) {
-      // don't use the cache, a free component
-      cacheKey = null;
-    } else if ( pinValue != true ) {
+    if ( pinValue == true ) {
+      // pinValue == true, the default, a singleton component
+      cacheKey = `${code}:singleton`;
+    } else if ( pinValue != false ) {
       // use the cache with a key, an insteance component
       cacheKey = `${code}:${pinValue}`;
-    } else {
-      // pinValue == true, the default, a singleton component
-      // so do nothing
-      cacheKey = `${code}:singleton`;
     }
 
     let update = true;
