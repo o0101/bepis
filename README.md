@@ -4,11 +4,13 @@
 
 # [bepis](#drincc) ![download badge](https://img.shields.io/npm/dw/bepis) ![version badge](https://img.shields.io/npm/v/bepis/latest)
 
-Bepis is a crazy new way to write dynamic HTML + CSS in JavaScript.
+Dynamic HTML + CSS in JavaScript.
 
 [It Is On Npm](https://www.npmjs.com/package/bepis)
 
-You can use [snowpack](https://github.com/pikapkg/snowpack).
+```shell
+npm i bepis
+```
 
 ## Examples
 
@@ -20,7 +22,6 @@ import { w, clone } from "bepis";
 ```
 
 Then set up some data:
-
 ```
 const myItems = [
   { name: "Screw", description: "Part", key: "a3" },
@@ -31,7 +32,6 @@ const newName = "Mojo";
 ```
 
 Make some views:
-
 ```
 const Item = item => w` ${item.key} 
   li p, 
@@ -52,12 +52,6 @@ const myChangedItems = clone(myItems);
 myChangedItems[1].name = newName;
 
 setTimeout(() => List(myChangedItems), 2000);
-```
-
-## Get
-
-```
-$ npm i bepis
 ```
 
 ## :text, :map and :comp directives.
