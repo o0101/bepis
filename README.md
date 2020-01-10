@@ -33,22 +33,20 @@ const newName = "Mojo";
 
 Make some views:
 ```js
-// keyed component
-const Item = item =>
+const KeyedItem = item =>
   w` ${item.key} 
     li p, 
       :text ${item.description}.
       a ${{ href: item.url }} :text ${item.name}..`;
 
-// singleton component
-const List = items =>
+const SingletonList = items =>
   w` ${true} 
-    ul :map ${items} ${Item}`;
+    ul :map ${items} ${KeyedItem}`;
 ```
 
 Render the data and mount the view to the document
 ```js
-List(myItems)(document.body);
+SingletonList(myItems)(document.body);
 ```
 
 Make a change and see it
@@ -56,7 +54,7 @@ Make a change and see it
 const myChangedItems = clone(myItems);
 myChangedItems[1].name = newName;
 
-setTimeout(() => List(myChangedItems), 2000);
+setTimeout(() => SingletonList(myChangedItems), 2000);
 ```
 
 ## :text, :map and :comp directives.
