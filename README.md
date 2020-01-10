@@ -4,145 +4,77 @@
 
 # [bepis](#drincc) ![download badge](https://img.shields.io/npm/dw/bepis) ![version badge](https://img.shields.io/npm/v/bepis/latest)
 
-Bepis is a crazy new way to write dynamic HTML + CSS in JavaScript.
+Dynamic HTML + CSS in JavaScript.
 
 [It Is On Npm](https://www.npmjs.com/package/bepis)
 
-You can use [snowpack](https://github.com/pikapkg/snowpack).
+```console
+npm i bepis
+```
 
 ## Examples
 
-Simple keyed list:
-```javascript
-// setup
-const Item = item => w`${item.key} li p,
+Simple keyed list, play with it [here](https://codesandbox.io/s/bepis-latest-playground-6cggy):
+
+First, import:
+```js
+import { w, clone } from "bepis";
+```
+
+Then set up some data:
+```js
+const myItems = [
+  { name: "Screw", description: "Part", key: "a3" },
+  { name: "Moxie", description: "Intangible", key: "x5" },
+  { name: "Sand", description: "Material", key: "p4" },
+];
+const newName = "Mojo";
+```
+
+Make some views:
+```js
+const KeyedItem = item =>
+  w` ${item.key} 
+    li p, 
       :text ${item.description}.
-      a ${{href:item.url}} :text ${item.name}.`;
-const list = items => w`ul :map ${items} ${Item}.`;
+      a ${{ href: item.url }} :text ${item.name}..`;
 
-// use
-list(myItems)(document.body);       // mount it
-myItems[3].name = newName;          // change something
-list(myItems);                      // only item 3 will change
+const SingletonList = items =>
+  w` ${true} 
+    ul :map ${items} ${KeyedItem}`;
 ```
 
-Just a simple example, [online here](https://codesandbox.io/s/bepis-latest-playground-r8c4k):
+Render the data and mount the view to the document
+```js
+SingletonList(myItems)(document.body);
+```
 
-```html
-<script type=module>
-  import {w} from './web_modules/bepis.js';
+Make a change and see it
+```js
+const myChangedItems = clone(myItems);
+myChangedItems[1].name = newName;
 
+setTimeout(() => SingletonList(myChangedItems), 2000);
+```
+
+## :text, :map and :comp directives.
+
+- Use `:text` to insert text, and `:map` to insert lists, as in the above example.
+- Use `:comp` to insert components:
+  ```javascript
   w`
-  main,
-    header.
-    section ${{class:'content'}},
-      section ${{class:'info'}},
-        article dl,
-          dt ${"Product Title"}.
-          dd ${"About this product"}.
-        .
-        br.br.
-      .
-      section ${{class:'action'}},
-        form ${{onsubmit:() => alert('?')}} fieldset,
-          legend :text ${"Good looking"}.
-          p label ${"Field"} input ${{required:true, placeholder:"Field"}}.
-          p label ${"Field"} textarea ${{required:true, placeholder:"Field"}}.
-          p button ${"Submit"}.
-        .
-      .
-    .
-    footer nav ul,
-      li a ${{href:':about'}} :text ${"About"}.
-      li a ${{href:':legal'}} :text ${"Legal"}.
-      li a ${{href:':contact'}} :text ${"Contact"}.
-      li a ${{href:':faq'}} :text ${"FAQ"}.
-      li a ${{href:':support'}} :text ${"Support"}.
-    .
-  `(document.body);
-</script>
-```
-
-## Get
-
-```
-$ npm i bepis
-```
-
-## TCM
-
-*Traditional Chinese Medicine?* This time no. **:text, :map and :comp** directives.
-
-- Use `:text` to insert text nodes that have siblings. Use `.innerText` in the first param to set text without siblings.
-
-  ```javascript
-    w`
-      h1,
-        :text ${"Bepis is "}.
-        em ${"REALLY"}.
-        :text ${" the best!"}.
-        :text ${" YES"}
-    `(document.body);
+    main,
+      h1 ${"Demo"}.
+      :comp ${myChangedItems} ${SingletonList}..`
   ```
-  
-- Use `:comp` to insert another "Component": a function returning an Element or String.
-
-  ```javascript
-    const Spinner = () => w`i ${{class:'fa-spinner', hidden:true}}`;
-    w`
-    button,
-      :text ${"Save"}.
-      :comp ${data} ${Spinner}
-    `
-  ```
-  - If first param is a function it is called to get the input to pass to second param.
-  - Otherwise first param is passed to second param. The result inserted.
-  - If second param is omitted, first param is a function. Its result inserted.
-  
-- Use `:map` to insert multiple.
-
-  ```javascript
-    const dataList = [{name:'He'}, {name:'Si'}, {name:'Kr'}];
-    const ItemBepis = item => w`li h1 ${item.name}`;
-    w`
-    ul,
-      :map ${dataList} ${ItemBepis}
-    `
-  ```
-  - The second parameter can be omitted when each list member is an Element or a String.
 
 ## Basics
 
 - Use template literals tagged with `w`. This creates a 'bepis'
 - Use ',' operator to save an insertion point
 - Use '.' operator to load an insertion point
-- After a tag path the first parameter is the content (string or Element properties object)
-- After a tag path the second parameter is the style (inline style object scoped to that element)
-- A tagged template literal returns an insertion function. Call that function with the Element you want to append this markup to.
-- Whitespace in the template literal has no special meaning and, except to separate tags, is ignored.
-- If you want to use the style parameter, but not the content parameter you need to put a null or undefined in the content parameter. I do this in the examples by using a variable set to null.
-- The last sequence of '.' operators in a bepis can **not** be omitted, otherwise those nodes will not be inserted.
-
-## Component types
-
-- Pinned: singleton, specify with first parameter equal `true`, e.g.
-  ```
-  const print1 = () => w`p label input ${{value:count++}}`
-  const print2 = () => w`${true} p label input ${{value:count++}}`
-  // equivalent
-  ```
-- Pinned: instance, specify with first parameter a key that identifies, e.g.
-  ```
-  const print = key => w`${key} p label input ${{value:count++}}`
-  ```
-- Free: multiple (the default), specify with no first parameter or first parameter false, e.g.
-  ```
-  const print = () => w`${false} p label input ${{value:count++}}`
-  ```
-
-After mounting, a singleton component will always update in place when its bepis is called.
-Similarly, each instance component will update in place when its bepis is called with its key.
-Free components, create new markup, and must be mounted every call.
+- `<tag name> ${attributes} ${styles}` is the format.
+- Whitespace is ignored.
 
 ## Up next
 
