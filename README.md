@@ -62,12 +62,10 @@ setTimeout(() => SingletonList(myChangedItems), 2000);
 - Use `:text` to insert text, and `:map` to insert lists, as in the above example.
 - Use `:comp` to insert components:
   ```javascript
-    const Spinner = () => w`i ${{class:'fa-spinner', hidden:true}}`
-    w`
-    button,
-      :text ${"Save"}.
-      :comp ${data} ${Spinner}..
-    `
+  w`
+    main,
+      h1 ${"Demo"}.
+      :comp ${myChangedItems} ${SingletonList}..`
   ```
 
 ## Basics
