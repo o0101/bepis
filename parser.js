@@ -1,4 +1,5 @@
   const DEBUG = false;
+  const DEV = true;
   const AsyncFunction = (async () => 1).__proto__.constructor;
   const Cache = new Map();
 
@@ -31,9 +32,9 @@
         const {rootElement, slots:existingSlots} = Cache.get(cacheKey);
         if ( !equals(slots, existingSlots) ) {
           // update
-          say("Slots changed. Updating", rootElement);
+          say(DEV, "Slots changed. Updating", rootElement);
         } else {
-          say("No change in slots. Not updating", rootElement);
+          say(DEV, "No change in slots. Not updating", rootElement);
           update = false;
         }
         existingRootElement = rootElement;
@@ -42,16 +43,15 @@
 
     if ( update ) {
       const root = buildTree(code, ...slots);
-      const rootElement = treeToDOM(root);
+      const rootElement = treeToDOM(root, Cache.has(cacheKey));
 
       if ( existingRootElement ) {
-        say("Replace", existingRootElement, "with", rootElement);
-        console.log("Replace", existingRootElement, "with", rootElement);
+        say(DEV,"Replace", existingRootElement, "with", rootElement);
         existingRootElement.replaceWith(rootElement);
       }
       existingRootElement = rootElement;
 
-      Cache.set(cacheKey, {rootElement, slots}); 
+      Cache.set(cacheKey, {rootElement:existingRootElement, slots}); 
     }
 
     return point => {
@@ -237,8 +237,7 @@
               }
               for ( const resultItem of resultItems ) {
                 if ( resultItem instanceof Element ) {
-                  say("Append resultItem", resultItem, "to", parentElement);
-                  console.log("Append resultItem", resultItem, "to", parentElement);
+                  say(DEV,"Append resultItem", resultItem, "to", parentElement);
                   parentElement.append(resultItem);
                 } else if ( typeof resultItem == "string" ) {
                   parentElement.insertAdjacentText('beforeEnd', resultItem);
@@ -266,8 +265,7 @@
               const result = func(data);
               if ( result instanceof Element ) {
                 if ( parentElement ) {
-                  say("Append result", result, "to", parentElement);
-                  console.log("Append result", result, "to", parentElement);
+                  say(DEV,"Append result", result, "to", parentElement);
                   parentElement.append(result);
                 }
                 parentElement = result;
@@ -297,13 +295,11 @@
         } else {
           const element = document.createElement(item.tag);
           say("Making", element);
-          console.log("Making", element);
 
           specify(element, ...item.params);
 
           if ( parentElement ) {
-            say("Append el", element, "to", parentElement);
-            console.log("Append el", element, "to", parentElement);
+            say(DEV,"Append el", element, "to", parentElement);
             parentElement.append(element);
           }
           parentElement = element;
@@ -365,6 +361,9 @@
   function say(...args) {
     if ( DEBUG ) {
       console.log(...args);
+    } else if ( typeof args[0] == "boolean" && args[0] == true ) {
+      args.shift();
+      console.log(...args);
     }
   }
 
@@ -397,4 +396,8 @@
     }
 
     return eq;
+  }
+
+  export function clone(o) {
+    return JSON.parse(JSON.stringify(o));
   }

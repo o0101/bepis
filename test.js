@@ -1,4 +1,4 @@
-import {w} from './index.js';
+import {w,clone} from './index.js';
 
 {
   const o = undefined;
@@ -236,7 +236,7 @@ import {w} from './index.js';
         :text ${item.description}.
         a ${{ href: item.url }} :text ${item.name}.
       .`;
-		const List = items => w`ul :map ${items} ${Item}`;
+		const List = items => w`${true} ul :map ${items} ${Item}`;
 		const myItems = [
 			{ name: "Ratchet", description: "Tool", key: "z2" },
 			{ name: "Screw", description: "Part", key: "a3" },
@@ -250,8 +250,10 @@ import {w} from './index.js';
 
 		// use
 		List(myItems)(document.body); // mount it
-		myItems[3].name = newName; // change something
-    setTimeout(() => List(myItems), 5000) // only item 3 will change
+    const myChangedItems = clone(myItems);
+		myChangedItems[3].name = newName; // change something
+    console.clear();
+    setTimeout(() => List(myChangedItems), 1000) // only item 3 will change
   }
 }
 
