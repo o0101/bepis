@@ -63,7 +63,7 @@ setTimeout(() => List(myChangedItems), 2000);
     w`
     button,
       :text ${"Save"}.
-      :comp ${data} ${Spinner}
+      :comp ${data} ${Spinner}..
     `
   ```
 
@@ -72,12 +72,10 @@ setTimeout(() => List(myChangedItems), 2000);
 - Use template literals tagged with `w`. This creates a 'bepis'
 - Use ',' operator to save an insertion point
 - Use '.' operator to load an insertion point
-- After a tag path the first parameter is the content (string or Element properties object)
-- After a tag path the second parameter is the style (inline style object scoped to that element)
-- A tagged template literal returns an insertion function. Call that function with the Element you want to append this markup to.
-- Whitespace in the template literal has no special meaning and, except to separate tags, is ignored.
-- If you want to use the style parameter, but not the content parameter you need to put a null or undefined in the content parameter. I do this in the examples by using a variable set to null.
-- The last sequence of '.' operators in a bepis can **not** be omitted, otherwise those nodes will not be inserted.
+- `<tag name> ${attributes} ${styles}` is the format.
+- `w` returns a mount function.
+- If there's a parameter in w before any tags, it sets component type. Unique key gives a pinned component, true gives singleton. False, the default, gives a free component.
+- Whitespace is ignored.
 
 ## Up next
 
