@@ -8,7 +8,7 @@ Dynamic HTML + CSS in JavaScript.
 
 [It Is On Npm](https://www.npmjs.com/package/bepis)
 
-```shell
+```console
 npm i bepis
 ```
 
@@ -17,12 +17,12 @@ npm i bepis
 Simple keyed list, play with it [here](https://codesandbox.io/s/bepis-latest-playground-6cggy):
 
 First, import:
-```
+```js
 import { w, clone } from "bepis";
 ```
 
 Then set up some data:
-```
+```js
 const myItems = [
   { name: "Screw", description: "Part", key: "a3" },
   { name: "Moxie", description: "Intangible", key: "x5" },
@@ -32,7 +32,7 @@ const newName = "Mojo";
 ```
 
 Make some views:
-```
+```js
 const Item = item => w` ${item.key} 
   li p, 
     :text ${item.description}.
@@ -42,12 +42,12 @@ const List = items => w` ${true} ul :map ${items} ${Item}`;
 ```
 
 Render the data and mount the view to the document
-```
+```js
 List(myItems)(document.body);
 ```
 
 Make a change and see it
-```
+```js
 const myChangedItems = clone(myItems);
 myChangedItems[1].name = newName;
 
