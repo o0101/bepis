@@ -12,55 +12,45 @@ You can use [snowpack](https://github.com/pikapkg/snowpack).
 
 ## Examples
 
-Simple keyed list:
+Simple keyed list, play with it [here](https://codesandbox.io/s/bepis-latest-playground-6cggy):
+
 ```javascript
+import { w, clone } from "bepis";
+
 // setup
-const Item = item => w`${item.key} li p,
-      :text ${item.description}.
-      a ${{href:item.url}} :text ${item.name}.`;
-const list = items => w`ul :map ${items} ${Item}.`;
+const myItems = [
+  { name: "Ratchet", description: "Tool", key: "z2" },
+  { name: "Screw", description: "Part", key: "a3" },
+  { name: "Sand", description: "Material", key: "p4" },
+  { name: "Moxie", description: "Intangible", key: "x5" },
+  { name: "Evie", description: "Name", key: "s1" }
+];
+const newName = "Mojo";
 
-// use
-list(myItems)(document.body);       // mount it
-myItems[3].name = newName;          // change something
-list(myItems);                      // only item 3 will change
-```
+// keyed item
+const Item = item => w`
+  ${item.key} 
+  li p, 
+    :text ${item.description}.
+    a ${{ href: item.url }} :text ${item.name}.
+  .
+`;
 
-Just a simple example, [online here](https://codesandbox.io/s/bepis-latest-playground-r8c4k):
+// singleton list
+const List = items => w`
+  ${true} 
+  ul :map ${items} ${Item}
+`;
 
-```html
-<script type=module>
-  import {w} from './web_modules/bepis.js';
+// mount
+List(myItems)(document.body);
 
-  w`
-  main,
-    header.
-    section ${{class:'content'}},
-      section ${{class:'info'}},
-        article dl,
-          dt ${"Product Title"}.
-          dd ${"About this product"}.
-        .
-        br.br.
-      .
-      section ${{class:'action'}},
-        form ${{onsubmit:() => alert('?')}} fieldset,
-          legend :text ${"Good looking"}.
-          p label ${"Field"} input ${{required:true, placeholder:"Field"}}.
-          p label ${"Field"} textarea ${{required:true, placeholder:"Field"}}.
-          p button ${"Submit"}.
-        .
-      .
-    .
-    footer nav ul,
-      li a ${{href:':about'}} :text ${"About"}.
-      li a ${{href:':legal'}} :text ${"Legal"}.
-      li a ${{href:':contact'}} :text ${"Contact"}.
-      li a ${{href:':faq'}} :text ${"FAQ"}.
-      li a ${{href:':support'}} :text ${"Support"}.
-    .
-  `(document.body);
-</script>
+// change
+const myChangedItems = clone(myItems);
+myChangedItems[3].name = newName;
+
+// see update
+setTimeout(() => List(myChangedItems), 2000);
 ```
 
 ## Get
