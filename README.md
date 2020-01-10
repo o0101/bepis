@@ -27,20 +27,14 @@ const myItems = [
 ];
 const newName = "Mojo";
 
-// keyed item
-const Item = item => w`
-  ${item.key} 
+// keyed component
+const Item = item => w` ${item.key} 
   li p, 
     :text ${item.description}.
-    a ${{ href: item.url }} :text ${item.name}.
-  .
-`;
+    a ${{ href: item.url }} :text ${item.name}..`;
 
-// singleton list
-const List = items => w`
-  ${true} 
-  ul :map ${items} ${Item}
-`;
+// singleton component
+const List = items => w` ${true} ul :map ${items} ${Item}`;
 
 // mount
 List(myItems)(document.body);
