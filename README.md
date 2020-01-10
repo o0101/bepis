@@ -14,34 +14,43 @@ You can use [snowpack](https://github.com/pikapkg/snowpack).
 
 Simple keyed list, play with it [here](https://codesandbox.io/s/bepis-latest-playground-6cggy):
 
-```javascript
+First, import:
+```
 import { w, clone } from "bepis";
+```
 
-// setup
+Then set up some data:
+
+```
 const myItems = [
   { name: "Screw", description: "Part", key: "a3" },
   { name: "Moxie", description: "Intangible", key: "x5" },
   { name: "Sand", description: "Material", key: "p4" },
 ];
 const newName = "Mojo";
+```
 
-// keyed component
+Make some views:
+
+```
 const Item = item => w` ${item.key} 
   li p, 
     :text ${item.description}.
     a ${{ href: item.url }} :text ${item.name}..`;
 
-// singleton component
 const List = items => w` ${true} ul :map ${items} ${Item}`;
+```
 
-// mount
+Render the data and mount the view to the document
+```
 List(myItems)(document.body);
+```
 
-// change
+Make a change and see it
+```
 const myChangedItems = clone(myItems);
 myChangedItems[1].name = newName;
 
-// see update
 setTimeout(() => List(myChangedItems), 2000);
 ```
 
@@ -53,37 +62,14 @@ $ npm i bepis
 
 ## :text, :map and :comp directives.
 
-- Use `:text` to insert text nodes
-
-  ```javascript
-    w`
-      h1,
-        :text ${"Bepis is "}.
-        em ${"REALLY"}.
-        :text ${" the best!"}.
-        :text ${" YES"}
-    `(document.body);
-  ```
-  
-- Use `:comp` to insert a component
-
+- Use `:text` to insert text, and `:map` to insert lists, as in the above example.
+- Use `:comp` to insert components:
   ```javascript
     const Spinner = () => w`i ${{class:'fa-spinner', hidden:true}}`;
     w`
     button,
       :text ${"Save"}.
       :comp ${data} ${Spinner}
-    `
-  ```
-  
-- Use `:map` to insert lists
-
-  ```javascript
-    const dataList = [{name:'He'}, {name:'Si'}, {name:'Kr'}];
-    const ItemBepis = item => w`li h1 ${item.name}`;
-    w`
-    ul,
-      :map ${dataList} ${ItemBepis}
     `
   ```
 
