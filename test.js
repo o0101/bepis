@@ -81,17 +81,17 @@ import {w} from './index.js';
   `(document.body);
   }
 
-  // #text test
+  // :text test
   {
     w`
       h1,
-        #text ${"Bepis is "}.
+        :text ${"Bepis is "}.
         em ${"REALLY"}.
-        #text ${" the best!"}.
-        #text ${" YES"}
+        :text ${" the best!"}.
+        :text ${" YES"}
     `(document.body);
   }
-  // #comp test
+  // :comp test
   {
     const data = [
       {name:"Name", spec: {required: true, type:'text', placeholder:'your name'}},
@@ -101,7 +101,7 @@ import {w} from './index.js';
     const field = ({name, spec}) => w`p label ${name} input ${spec}`();
 
     const form = ({x,y} = {}) => w`form ${o} ${myStyle}, 
-        #map ${data} ${field}.
+        :map ${data} ${field}.
         p button ${x || y ? `Sign Up ${x+y}`: "Sign Up"} 
       `();
 
@@ -110,7 +110,7 @@ import {w} from './index.js';
         h1 ${"Godot Waited"}.
         section ${{class:'form'}},
           p ${"Fill it out"}.
-          #comp ${o} ${form}.
+          :comp ${o} ${form}.
           p ${"End of section"}
     `(document.body);
 
@@ -119,7 +119,7 @@ import {w} from './index.js';
         h1 ${"Godot Waited with data function"}.
         section ${{class:'form'}},
           p ${"Fill it out"}.
-          #comp ${() => ({x:1,y:2})} ${form}.
+          :comp ${() => ({x:1,y:2})} ${form}.
           p ${"End of section"}
     `(document.body);
 
@@ -128,12 +128,12 @@ import {w} from './index.js';
         h1 ${"Godot Waited with 1 param comp on form"}.
         section ${{class:'form'}},
           p ${"Fill it out"}.
-          #comp ${form}.
+          :comp ${form}.
           p ${"End of section"}
     `(document.body);
   }
 
-  // #map test
+  // :map test
   {
     const data = [
       {name:"Name", spec: {required: true, type:'text', placeholder:'your name'}},
@@ -143,12 +143,12 @@ import {w} from './index.js';
     const field = ({name, spec}) => w`p label ${name} input ${spec}`();
 
     w`form ${o} ${myStyle}, 
-      #map ${data} ${field}.
+      :map ${data} ${field}.
       p button ${"Sign up"} 
     `(body);
 
     w`form ${"Excellent Form with Data Function"} ${myStyle}, 
-      #map ${() => data} ${field}.
+      :map ${() => data} ${field}.
       p button ${"Sign up"} 
     `(body);
   }

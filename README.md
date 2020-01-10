@@ -2,7 +2,7 @@
   <img src="readme-images/bepis-logo.jpg?raw=true" alt="Bepis Logo">
 </p>
 
-# [bepis](#dincc) ![download badge](https://img.shields.io/npm/dw/bepis) ![version badge](https://img.shields.io/npm/v/bepis/latest)
+# [bepis](#drincc) ![download badge](https://img.shields.io/npm/dw/bepis) ![version badge](https://img.shields.io/npm/v/bepis/latest)
 
 Bepis is a crazy new way to write dynamic HTML + CSS in JavaScript.
 
@@ -16,9 +16,9 @@ Simple keyed list:
 ```javascript
 // setup
 const Item = item => w`${item.key} li p,
-      #text ${item.description}.
-      a ${{href:item.url}} #text ${item.name}.`;
-const list = items => w`ul #map ${items} ${Item}.`;
+      :text ${item.description}.
+      a ${{href:item.url}} :text ${item.name}.`;
+const list = items => w`ul :map ${items} ${Item}.`;
 
 // use
 list(myItems)(document.body);       // mount it
@@ -45,7 +45,7 @@ Just a simple example, [online here](https://codesandbox.io/s/bepis-latest-playg
       .
       section ${{class:'action'}},
         form ${{onsubmit:() => alert('?')}} fieldset,
-          legend #text ${"Good looking"}.
+          legend :text ${"Good looking"}.
           p label ${"Field"} input ${{required:true, placeholder:"Field"}}.
           p label ${"Field"} textarea ${{required:true, placeholder:"Field"}}.
           p button ${"Submit"}.
@@ -53,11 +53,11 @@ Just a simple example, [online here](https://codesandbox.io/s/bepis-latest-playg
       .
     .
     footer nav ul,
-      li a ${{href:'#about'}} #text ${"About"}.
-      li a ${{href:'#legal'}} #text ${"Legal"}.
-      li a ${{href:'#contact'}} #text ${"Contact"}.
-      li a ${{href:'#faq'}} #text ${"FAQ"}.
-      li a ${{href:'#support'}} #text ${"Support"}.
+      li a ${{href:':about'}} :text ${"About"}.
+      li a ${{href:':legal'}} :text ${"Legal"}.
+      li a ${{href:':contact'}} :text ${"Contact"}.
+      li a ${{href:':faq'}} :text ${"FAQ"}.
+      li a ${{href:':support'}} :text ${"Support"}.
     .
   `(document.body);
 </script>
@@ -71,42 +71,42 @@ $ npm i bepis
 
 ## TCM
 
-*Traditional Chinese Medicine?* This time no. **#text, #map and #comp** directives.
+*Traditional Chinese Medicine?* This time no. **:text, :map and :comp** directives.
 
-- Use `#text` to insert text nodes that have siblings. Use `.innerText` in the first param to set text without siblings.
+- Use `:text` to insert text nodes that have siblings. Use `.innerText` in the first param to set text without siblings.
 
   ```javascript
     w`
       h1,
-        #text ${"Bepis is "}.
+        :text ${"Bepis is "}.
         em ${"REALLY"}.
-        #text ${" the best!"}.
-        #text ${" YES"}
+        :text ${" the best!"}.
+        :text ${" YES"}
     `(document.body);
   ```
   
-- Use `#comp` to insert another "Component": a function returning an Element or String.
+- Use `:comp` to insert another "Component": a function returning an Element or String.
 
   ```javascript
     const Spinner = () => w`i ${{class:'fa-spinner', hidden:true}}`;
     w`
     button,
-      #text ${"Save"}.
-      #comp ${data} ${Spinner}
+      :text ${"Save"}.
+      :comp ${data} ${Spinner}
     `
   ```
   - If first param is a function it is called to get the input to pass to second param.
   - Otherwise first param is passed to second param. The result inserted.
   - If second param is omitted, first param is a function. Its result inserted.
   
-- Use `#map` to insert multiple.
+- Use `:map` to insert multiple.
 
   ```javascript
     const dataList = [{name:'He'}, {name:'Si'}, {name:'Kr'}];
     const ItemBepis = item => w`li h1 ${item.name}`;
     w`
     ul,
-      #map ${dataList} ${ItemBepis}
+      :map ${dataList} ${ItemBepis}
     `
   ```
   - The second parameter can be omitted when each list member is an Element or a String.
