@@ -4,6 +4,7 @@
   "description": "bepis is a crazy new way to write HTML + CSS in JavaScript",
   "main": "index.js",
   "module": "index.js",
+  "browser": "dist/index.js",
   "scripts": {
     "test": "serve -p 8080"
   },
