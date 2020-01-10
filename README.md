@@ -33,8 +33,10 @@ const newName = "Mojo";
 
 Make some views:
 ```js
-const Item = item => w` ${item.key} li p, :text ${item.description}. a ${{ href: item.url }} :text ${item.name}..`
-const List = items => w` ${true} ul :map ${items} ${Item}`
+const Item = item => w` ${item.key} 
+li p, :text ${item.description}. a ${{ href: item.url }} :text ${item.name}..`
+const List = items => w` ${true} 
+ul :map ${items} ${Item}`
 ```
 
 Render the data and mount the view to the document
