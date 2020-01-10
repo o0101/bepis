@@ -45,6 +45,8 @@
       const rootElement = treeToDOM(root);
 
       if ( existingRootElement ) {
+        say("Replace", existingRootElement, "with", rootElement);
+        console.log("Replace", existingRootElement, "with", rootElement);
         existingRootElement.replaceWith(rootElement);
       }
       existingRootElement = rootElement;
@@ -53,8 +55,8 @@
     }
 
     return point => {
-      say("Insert at", point, existingRootElement);
-      if ( point ) {
+      if ( !! point ) {
+        say("Insert at", point, existingRootElement);
         point.insertAdjacentElement('beforeEnd', existingRootElement);
       }
       return existingRootElement;
@@ -219,13 +221,15 @@
               for ( const item of data ) {
                 let result;
                 if ( !! func ) {
-                  result = func(item);
+                  // create a bepis with no mount
+                  result = func(item)(/* no mount */);
                 } else {
                   result = item;
                 }
 
                 if ( result instanceof Element || typeof result == "string" ) {
                   resultItems.push(result);
+                  say("Result", result);
                 } else {
                   console.warn({errorDetails:{list,func}});
                   throw new TypeError(":map must produce a list where each item is either an Element or a string");
@@ -233,6 +237,8 @@
               }
               for ( const resultItem of resultItems ) {
                 if ( resultItem instanceof Element ) {
+                  say("Append resultItem", resultItem, "to", parentElement);
+                  console.log("Append resultItem", resultItem, "to", parentElement);
                   parentElement.append(resultItem);
                 } else if ( typeof resultItem == "string" ) {
                   parentElement.insertAdjacentText('beforeEnd', resultItem);
@@ -260,6 +266,8 @@
               const result = func(data);
               if ( result instanceof Element ) {
                 if ( parentElement ) {
+                  say("Append result", result, "to", parentElement);
+                  console.log("Append result", result, "to", parentElement);
                   parentElement.append(result);
                 }
                 parentElement = result;
@@ -289,10 +297,13 @@
         } else {
           const element = document.createElement(item.tag);
           say("Making", element);
+          console.log("Making", element);
 
           specify(element, ...item.params);
 
           if ( parentElement ) {
+            say("Append el", element, "to", parentElement);
+            console.log("Append el", element, "to", parentElement);
             parentElement.append(element);
           }
           parentElement = element;

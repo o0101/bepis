@@ -92,7 +92,7 @@ import {w} from './index.js';
         :text ${" YES"}
     `(document.body);
   }
-  **/
+
   // :comp test
   {
     const data = [
@@ -135,7 +135,6 @@ import {w} from './index.js';
     `(document.body);
   }
 
-  /**
   // :map test
   {
     const data = [
@@ -229,5 +228,30 @@ import {w} from './index.js';
     intervals.forEach(i => clearInterval(i)); 
   }, 5000);
   **/
+  
+  {
+		// setup
+		const Item = item => w`${item.key}
+			li p, 
+        :text ${item.description}.
+        a ${{ href: item.url }} :text ${item.name}.
+      .`;
+		const List = items => w`ul :map ${items} ${Item}`;
+		const myItems = [
+			{ name: "Ratchet", description: "Tool", key: "z2" },
+			{ name: "Screw", description: "Part", key: "a3" },
+			{ name: "Sand", description: "Material", key: "p4" },
+			{ name: "Moxie", description: "Intangible", key: "x5" },
+			{ name: "Delilah", description: "Name", key: "s1" }
+		];
+		const newName = "Mojo";
+
+		Object.assign(window, { Item, List, myItems, newName });
+
+		// use
+		List(myItems)(document.body); // mount it
+		myItems[3].name = newName; // change something
+    setTimeout(() => List(myItems), 5000) // only item 3 will change
+  }
 }
 
