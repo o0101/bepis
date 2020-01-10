@@ -67,6 +67,8 @@
   }
 
   function buildTree(code, ...slots) {
+    const updators = [];
+    const N = slots.length;
     let slice = {tag: '', params: [], children: []};
     const stack = [slice];
 
@@ -83,7 +85,17 @@
         }; break;
 
         case '$': {
-          slice.params.push(slots.shift());
+          const oldSlot = slots.shift();
+          slice.params.push(oldSlot);
+          const paramIndex = slice.params.length-1;
+          const Updator = {
+            oldSlot, 
+            element: null, 
+            paramIndex,
+            slotIndex: N - (slots.length) - 1
+          };
+          slice[`updator${paramIndex}`] = Updator;
+          updators.push(Updator);
         }; break;
 
         case ',': {
