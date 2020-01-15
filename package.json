@@ -1,12 +1,12 @@
 {
   "name": "bepis",
-  "version": "2.1.15",
+  "version": "2.1.16",
   "description": "bepis is a crazy new way to write HTML + CSS in JavaScript",
   "main": "index.js",
   "module": "index.js",
   "browser": "dist/index.js",
   "pre-commit": [
-    "build" 
+    "build"
   ],
   "scripts": {
     "test": "serve -p 8080",
