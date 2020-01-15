@@ -1,5 +1,5 @@
   const DEBUG = false;
-  const DEV = true;
+  const DEV = false;
   const AsyncFunction = (async () => 1).__proto__.constructor;
   const Cache = new Map();
 
