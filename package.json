@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/crislin2046/bepis#readme",
   "devDependencies": {
+    "pre-commit": "^1.2.2",
     "serve": "^11.3.0"
   },
   "dependencies": {},
