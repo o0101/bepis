@@ -5,7 +5,9 @@
   "main": "index.js",
   "module": "index.js",
   "browser": "dist/index.js",
-  "precommit": "npm run build",
+  "pre-commit": [
+    "build" 
+  ],
   "scripts": {
     "test": "serve -p 8080",
     "build": "parcel build index.js --no-source-maps"
