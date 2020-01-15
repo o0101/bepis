@@ -34,5 +34,36 @@ Each updator function handles 1 slot. We also return the updator functions in a 
 
 The updator function is easily found for any slots that change.
 
+# Sketches
+
+```javascript
+function updateText(textNode, newValue) {
+  if ( textNode.nodeValue != newValue ) {
+    textNode.nodeValue = newValue;
+  }
+}
+
+function updateAttribute(node, attrName, attrValue) {
+  const idlValue = node[attrName];
+  const markupValue = node.getAttribute(attrName);
+  
+  const alreadyEquals = idlValue == attrValue || markupValue == attrValue;
+  
+  if ( alreadyEquals ) return;
+  
+  try {
+    node.setAttribute(attrName, attrvalue);
+  } catch(e) {}
+  
+  try {
+    node[attrName] = attrValue;
+  } catch(e) {}
+}
+
+// functions for updateAttrObject, updateStyleObject
+
+// also functions for updateList, updateComponent
+```
+
 
 
