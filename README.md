@@ -2,7 +2,7 @@
   <img src="readme-images/bepis-logo.jpg?raw=true" alt="Bepis Logo">
 </p>
 
-# [bepis](#drincc) ![download badge](https://img.shields.io/npm/dt/bepis) ![version badge](https://img.shields.io/npm/v/bepis/latest)
+# :dog2: [bepis](#drincc) ![download badge](https://img.shields.io/npm/dt/bepis) ![version badge](https://img.shields.io/npm/v/bepis/latest)
 
 Dynamic HTML + CSS in JavaScript.
 
