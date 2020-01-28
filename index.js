@@ -360,7 +360,11 @@
       if ( style instanceof Function ) {
         style = style(element, content);
       }
-      Object.assign(element.style, style);
+      if ( typeof style == "string" ) {
+        element.setAttribute("stylist", style);  
+      } else {
+        Object.assign(element.style, style);
+      }
   }
 
   function getData(maybeFunc) {

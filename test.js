@@ -256,8 +256,6 @@ import {w,clone} from './index.js';
 
   // function in style slot test
   {
-    // should print only 2 widgets even tho re-mounted each call
-
     const print = value => w`p label ${"Label"} input ${{value}} ${styler}`;
       
     print('abc124')(document.body);
@@ -269,6 +267,23 @@ import {w,clone} from './index.js';
         fontWeight: 'bold',
         fontSize: '21pt'
       };
+    }
+  }
+
+  // string (stylist function name for style.dss) in style slot test
+  {
+    const print = value => w`p label ${"Label"} input ${{value}} ${"styler"}`;
+      
+    print('abc124')(document.body);
+
+    function styler() {
+      return `
+        * {
+          background: 'dodgerblue';
+          color: 'white';
+          font-weight: 'bold';
+        }
+      `;
     }
   }
 }
