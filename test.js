@@ -9,7 +9,6 @@ import {w,clone} from './index.js';
     margin: 0
   };
 
-  /**
   {
     w`form ${o} ${myStyle}, 
       p label ${"Name"} input ${{required: true, type:'text', placeholder:'your name'}}.
@@ -100,7 +99,7 @@ import {w,clone} from './index.js';
       {name:"Email", spec: {required: true, type:'text', placeholder:'your email'}},
       {name:"Password", spec: {required: true, type:'text', placeholder:'your password'}},
     ];
-    const field = ({name, spec}) => w`p label ${name} input ${spec}`();
+    const field = ({name, spec}) => w`p label ${name} input ${spec}`;
 
     const form = ({x,y} = {}) => w`form ${o} ${myStyle}, 
         :map ${data} ${field}.
@@ -142,7 +141,7 @@ import {w,clone} from './index.js';
       {name:"Email", spec: {required: true, type:'text', placeholder:'your email'}},
       {name:"Password", spec: {required: true, type:'text', placeholder:'your password'}},
     ];
-    const field = ({name, spec}) => w`p label ${name} input ${spec}`();
+    const field = ({name, spec}) => w`p label ${name} input ${spec}`;
 
     w`form ${o} ${myStyle}, 
       :map ${data} ${field}.
@@ -227,7 +226,6 @@ import {w,clone} from './index.js';
     console.log("Clearing intervals " + intervals.join(','));
     intervals.forEach(i => clearInterval(i)); 
   }, 5000);
-  **/
   
   {
 		// setup
@@ -254,6 +252,24 @@ import {w,clone} from './index.js';
 		myChangedItems[3].name = newName; // change something
     console.clear();
     setTimeout(() => List(myChangedItems), 1000) // only item 3 will change
+  }
+
+  // function in style slot test
+  {
+    // should print only 2 widgets even tho re-mounted each call
+
+    const print = value => w`p label ${"Label"} input ${{value}} ${styler}`;
+      
+    print('abc124')(document.body);
+
+    function styler() {
+      return {
+        background: 'dodgerblue',
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: '21pt'
+      };
+    }
   }
 }
 

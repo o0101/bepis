@@ -237,6 +237,7 @@
                 let result;
                 if ( !! func ) {
                   // create a bepis with no mount
+                  console.log(func);
                   result = func(item)(/* no mount */);
                 } else {
                   result = item;
@@ -356,6 +357,9 @@
       }
 
     // apply style
+      if ( style instanceof Function ) {
+        style = style(element, content);
+      }
       Object.assign(element.style, style);
   }
 
