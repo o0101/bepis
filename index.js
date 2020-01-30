@@ -1,5 +1,6 @@
   const DEBUG = false;
   const DEV = false;
+  const IsBepis = Symbol('[[Bepis]]');
   const AsyncFunction = (async () => 1).__proto__.constructor;
   const Cache = new Map();
 
@@ -57,13 +58,17 @@
       Cache.set(cacheKey, {rootElement:existingRootElement, slots}); 
     }
 
-    return point => {
+    const inserter = point => {
       if ( !! point ) {
         say("Insert at", point, existingRootElement);
         point.insertAdjacentElement('beforeEnd', existingRootElement);
       }
       return existingRootElement;
     };
+
+    inserter[IsBepis] = true;
+
+    return inserter;
   }
 
   function buildTree(code, ...slots) {
@@ -278,7 +283,12 @@
                 func = x => x;
               }
               let data = getData(maybeDataOrFunc);
-              const result = func(data);
+              let result = func(data);
+
+              if ( result[IsBepis] ) {
+                result = result();
+              }
+
               if ( result instanceof Element ) {
                 if ( parentElement ) {
                   say(DEV,"Append result", result, "to", parentElement);
