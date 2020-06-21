@@ -1,7 +1,7 @@
   const DEBUG = false;
   const DEV = false;
   const IsBepis = Symbol('[[Bepis]]');
-  const AsyncFunction = (async () => 1).__proto__.constructor;
+  const AsyncFunction = Object.getPrototypeOf(async () => 1).constructor;
   const Cache = new Map();
 
   export function w(code, ...slots) {
