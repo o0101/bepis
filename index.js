@@ -351,7 +351,8 @@
   function specify(element, content, style) {
     // insert local content at stack top
       if ( content == null || content == undefined ) {
-        // do nothing
+        // do nothing, but put a statement here so it will not be cut away by transpilers and produce lint / type errors
+        content = '';
       } else if ( typeof content == "string" ) {
         element.innerText = content;
       } else if ( typeof content == "object" ) {
