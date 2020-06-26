@@ -242,7 +242,7 @@
                 let result;
                 if ( !! func ) {
                   // create a bepis with no mount
-                  console.log(func);
+                  DEBUG && console.log(func);
                   result = func(item)(/* no mount */);
                 } else {
                   result = item;
