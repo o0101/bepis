@@ -4,7 +4,7 @@
 
 # :dog2: [bepis](#drincc) ![download badge](https://img.shields.io/npm/dt/bepis) ![version badge](https://img.shields.io/npm/v/bepis/latest)
 
-Dynamic HTML + CSS in JavaScript.
+Dynamic HTML + CSS in JavaScript. Implemented using a custom parser for a new HTML templating DSL.
 
 [It Is On Npm](https://www.npmjs.com/package/bepis)
 
